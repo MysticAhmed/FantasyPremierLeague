@@ -4,6 +4,10 @@ from utils import *
 from Kits import *
 import requests
 
+# Initialize session state
+if 'formation' not in st.session_state:
+    st.session_state.formation = "5-4-1"
+
 st.set_page_config(page_title= "Fantasy Premier Predictions",
                     page_icon= 'https://cdn-1.webcatalog.io/catalog/fantasy-premier-league/fantasy-premier-league-icon-filled-256.png?v=1675594263665',layout="wide", initial_sidebar_state="auto", menu_items=None)
 goalie_future_fixture, defender_future_fixture, midfielder_fixtures_df, forward_fixtures_df = load_data()
