@@ -9,44 +9,30 @@ st.set_page_config(page_title= "Fantasy Premier Predictions",
 
 def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfielder_fixtures_df, forward_fixtures_df, data, positions, team_names):
     st.markdown(f"<h1 style='text-align: center; color: white; font-size : 30px;'>See how many points your current team may score!</h1>", unsafe_allow_html=True)
+    
+    # Initialize dictionaries for players
+    all_goalies = {}
+    all_defenders = {}
+    all_midfielders = {}
+    all_forwards = {}
 
-    # Populate lists with full player objects
-    all_goalies = [
-        {
+    # Populate the dictionaries with player details
+    for player in data['elements']:
+        player_id = player['id']
+        player_data = {
             'web_name': player['web_name'],
-            'id': player['id'],
+            'id': player_id,
             'team_code': player['team_code']
         }
-        for player in data['elements']
-        if positions[player['element_type']] == "Goalkeeper" and player['id'] in set(goalie_future_fixture['player_id'])
-    ]
-    all_defenders = [
-        {
-            'web_name': player['web_name'],
-            'id': player['id'],
-            'team_code': player['team_code']
-        }
-        for player in data['elements']
-        if positions[player['element_type']] == "Defender" and player['id'] in set(defender_future_fixture['player_id'])
-    ]
-    all_midfielders = [
-        {
-            'web_name': player['web_name'],
-            'id': player['id'],
-            'team_code': player['team_code']
-        }
-        for player in data['elements']
-        if positions[player['element_type']] == "Midfielder" and player['id'] in set(midfielder_fixtures_df['player_id'])
-    ]
-    all_forwards = [
-        {
-            'web_name': player['web_name'],
-            'id': player['id'],
-            'team_code': player['team_code']
-        }
-        for player in data['elements']
-        if positions[player['element_type']] == "Forward" and player['id'] in set(forward_fixtures_df['player_id'])
-    ]
+
+        if positions[player['element_type']] == "Goalkeeper" and player_id in set(goalie_future_fixture['player_id']):
+            all_goalies[player_id] = player_data
+        elif positions[player['element_type']] == "Defender" and player_id in set(defender_future_fixture['player_id']):
+            all_defenders[player_id] = player_data
+        elif positions[player['element_type']] == "Midfielder" and player_id in set(midfielder_fixtures_df['player_id']):
+            all_midfielders[player_id] = player_data
+        elif positions[player['element_type']] == "Forward" and player_id in set(forward_fixtures_df['player_id']):
+            all_forwards[player_id] = player_data
 
     # Add a toggle for dark and light mode
     theme_choice = st.radio("Choose Theme:", ["Dark Mode", "Light Mode"], horizontal=True)
@@ -97,14 +83,22 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
         st.error("Please enter a valid formation format (e.g., 4-4-2)")
         defen = mid = forw = 0
 
-    def position_selectbox(position, player_list, key_prefix):
-        options = [{"label": f"{p['web_name']} ({team_names[p['team_code']]})", "id": p['id']} for p in player_list]
-        selected_option = st.selectbox(
-            f"{position}",
-            [""] + [opt["label"] for opt in options],
-            key=f"{key_prefix}_selectbox",
+    def position_selectbox(position, player_dict, key_prefix):
+        # Add placeholder option
+        options = [{"label": "Select a player", "id": None}] + [
+            {
+                "label": f"{player_data['web_name']} ({team_names[player_data['team_code']]})",
+                "id": player_id,
+            }
+            for player_id, player_data in player_dict.items()
+        ]
+
+        # Default index to 0 for placeholder
+        selected = st.selectbox(
+            f"{position}", options, format_func=lambda option: option["label"], key=f"{key_prefix}_selectbox"
         )
-        return next((opt["id"] for opt in options if opt["label"] == selected_option), None)
+        return selected["id"] if selected and selected["id"] else None
+
 
     def calculate_points(players_df):
         return sum(math.ceil(player['prediction']) for _, player in players_df.iterrows())
