@@ -1,7 +1,7 @@
 import streamlit as st
 import math
 import pandas as pd
-from FPL_Main_Files.utils import *
+from utils import *
 from Kits import find_kit
 
 
