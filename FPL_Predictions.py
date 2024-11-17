@@ -45,7 +45,7 @@ with tab1:
     )
 
 with tab2:
-    own_team_predictons(
+    own_team_predictions(
         goalie_future_fixture, 
         defender_future_fixture, 
         midfielder_fixtures_df, 

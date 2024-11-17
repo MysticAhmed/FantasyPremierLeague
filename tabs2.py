@@ -4,55 +4,28 @@ import pandas as pd
 from utils import *
 from Kits import find_kit
 
-def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfielder_fixtures_df, forward_fixtures_df, data, positions, team_names):
+
+def own_team_predictons(goalie_future_fixture, defender_future_fixture, midfielder_fixtures_df, forward_fixtures_df, data, positions, team_names):
     st.markdown(f"<h1 style='text-align: center; color: white; font-size : 30px;'>See how many points your current team may score!</h1>", unsafe_allow_html=True)
+    
+    # Get IDs of players present in prediction data for filtering
+    goalie_ids_in_data = set(goalie_future_fixture['player_id'])
+    defender_ids_in_data = set(defender_future_fixture['player_id'])
+    midfielder_ids_in_data = set(midfielder_fixtures_df['player_id'])
+    forward_ids_in_data = set(forward_fixtures_df['player_id'])
 
-    # Populate lists with full player objects
-    all_goalies = [
-        {
-            'web_name': player['web_name'],
-            'id': player['id'],
-            'team_code': player['team_code']
-        }
-        for player in data['elements']
-        if positions[player['element_type']] == "Goalkeeper" and player['id'] in set(goalie_future_fixture['player_id'])
-    ]
-    all_defenders = [
-        {
-            'web_name': player['web_name'],
-            'id': player['id'],
-            'team_code': player['team_code']
-        }
-        for player in data['elements']
-        if positions[player['element_type']] == "Defender" and player['id'] in set(defender_future_fixture['player_id'])
-    ]
-    all_midfielders = [
-        {
-            'web_name': player['web_name'],
-            'id': player['id'],
-            'team_code': player['team_code']
-        }
-        for player in data['elements']
-        if positions[player['element_type']] == "Midfielder" and player['id'] in set(midfielder_fixtures_df['player_id'])
-    ]
-    all_forwards = [
-        {
-            'web_name': player['web_name'],
-            'id': player['id'],
-            'team_code': player['team_code']
-        }
-        for player in data['elements']
-        if positions[player['element_type']] == "Forward" and player['id'] in set(forward_fixtures_df['player_id'])
-    ]
+    # Populate lists with full player objects, not just names
+    all_goalies = [player for player in data['elements'] if positions[player['element_type']] == "Goalkeeper" and player['id'] in goalie_ids_in_data]
+    all_defenders = [player for player in data['elements'] if positions[player['element_type']] == "Defender" and player['id'] in defender_ids_in_data]
+    all_midfielders = [player for player in data['elements'] if positions[player['element_type']] == "Midfielder" and player['id'] in midfielder_ids_in_data]
+    all_forwards = [player for player in data['elements'] if positions[player['element_type']] == "Forward" and player['id'] in forward_ids_in_data]
 
-    # Formation input with a unique key
     formation = st.selectbox(
         "Pick a formation",
-        ("5-4-1", "5-3-2", "5-2-3", "5-1-4", "4-4-2", "4-3-3", "4-2-4", "4-1-5", "3-5-2", "3-4-3", "3-3-4", "3-2-5", "3-1-6", "2-5-3", "2-4-4", "2-3-5", "2-2-6"),
+        ("5-4-1", "5-3-2", "5-2-3", "5-1-4", "4-4-2","4-3-3", "4-2-4","4-1-5","3-5-2", "3-4-3", "3-3-4", "3-2-5", "3-1-6", "2-5-3","2-4-4","2-3-5", "2-2-6"),
         key="formation2"
     )
 
-    # Parse the formation input to determine the number of players per position
     try:
         defen = int(formation[0])
         mid = int(formation[2])
@@ -62,30 +35,24 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
         defen = mid = forw = 0
 
     def position_selectbox(position, player_list, key_prefix):
-        options = [{"label": f"{p['web_name']} ({team_names[p['team_code']]})", "id": p['id']} for p in player_list]
-        selected_option = st.selectbox(
-            f"{position}",
-            [""] + [opt["label"] for opt in options],
-            key=f"{key_prefix}_selectbox",
-        )
-        return next((opt["id"] for opt in options if opt["label"] == selected_option), None)
+        return st.selectbox(f"{position}", [""] + player_list, key=f"{key_prefix}_selectbox")
 
     def calculate_points(players_df):
-        return sum(math.ceil(player['prediction']) for _, player in players_df.iterrows())
+        points = 0
+        for player in players_df.itertuples(index=False):
+            points += math.ceil(player.prediction)
+        return points
 
-    # Dropdowns for each position
     selected_goalie = position_selectbox("Goalkeeper", all_goalies, "goalie")
     selected_defenders = [position_selectbox(f"Defender {i+1}", all_defenders, f"defender_{i}") for i in range(defen)]
     selected_midfielders = [position_selectbox(f"Midfielder {i+1}", all_midfielders, f"midfielder_{i}") for i in range(mid)]
     selected_forwards = [position_selectbox(f"Forward {i+1}", all_forwards, f"forward_{i}") for i in range(forw)]
 
-    # Convert selected player names to their IDs
-    selected_goalie_id = selected_goalie
-    selected_defender_ids = [player for player in selected_defenders if player]
-    selected_midfielder_ids = [player for player in selected_midfielders if player]
-    selected_forward_ids = [player for player in selected_forwards if player]
+    selected_goalie_id = get_player_id(selected_goalie, player_name_to_id)
+    selected_defender_ids = [get_player_id(player, player_name_to_id) for player in selected_defenders if player]
+    selected_midfielder_ids = [get_player_id(player, player_name_to_id) for player in selected_midfielders if player]
+    selected_forward_ids = [get_player_id(player, player_name_to_id) for player in selected_forwards if player]
 
-    # Filter each CSV by the selected player IDs
     selected_goalie_df = goalie_future_fixture[goalie_future_fixture['player_id'] == selected_goalie_id] if selected_goalie_id else pd.DataFrame()
     selected_defenders_df = defender_future_fixture[defender_future_fixture['player_id'].isin(selected_defender_ids)]
     selected_midfielders_df = midfielder_fixtures_df[midfielder_fixtures_df['player_id'].isin(selected_midfielder_ids)]
@@ -115,12 +82,13 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
 
     def display_players_by_position2(goalkeepers, defenders, midfielders, forwards):
         for _, players in [("Goalkeepers", goalkeepers), ("Defenders", defenders), ("Midfielders", midfielders), ("Forwards", forwards)]:
-            if not players.empty:
+            if len(players) > 0:
                 cols = st.columns(len(players))
                 for col, (_, player) in zip(cols, players.iterrows()):
                     display_player_in_selected_players(col, player)
 
     if st.button("Generate Predictions for Selected Players"):
+        predicted_points = 0
         selected_players = pd.concat([selected_goalie_df, selected_defenders_df, selected_midfielders_df, selected_forwards_df])
         predicted_points = calculate_points(selected_players)
         display_players_by_position2(selected_goalie_df, selected_defenders_df, selected_midfielders_df, selected_forwards_df)
@@ -128,8 +96,6 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
             f"<h1 style='text-align: center; color: pink; font-size : 30px; margin: 1px 0;'>Total Predicted Points: {predicted_points}</h1>",
             unsafe_allow_html=True,
         )
-
-
 
 
 def dream_team(upcoming_gameweek, team_names, goalie_future_fixture, defender_future_fixture, midfielder_fixtures_df, forward_fixtures_df):
@@ -194,13 +160,12 @@ def dream_team(upcoming_gameweek, team_names, goalie_future_fixture, defender_fu
     # Function to calculate total bench points
     def calculate_bench_points(config):
         """
-        Calculate total points for the bench players in a configuration,
-        rounding each player's prediction individually before summing.
+        Sums up the total predicted points from each role in the bench configuration.
         """
         total_points = 0
-        for role, players_df in config.items():
-            if not players_df.empty and 'prediction' in players_df.columns:
-                total_points += players_df['prediction'].apply(round).sum()
+        for role, players in config.items():
+            if not players.empty:  # Ensure there are players in the DataFrame
+                total_points += players['prediction'].sum()
         return total_points
 
 
@@ -310,7 +275,7 @@ def dream_team(upcoming_gameweek, team_names, goalie_future_fixture, defender_fu
             st.markdown(f"<p style='text-align: center; color: pink; font-size: 17px; margin: 1px 0;'>Predicted Points 🏆: {math.ceil(player['prediction'])}</p>", unsafe_allow_html=True)
             st.divider()
         if is_in_starting_xi(player_id):
-            predicted_points += math.ceil(player["prediction"])
+            predicted_points += player["prediction"]
         total_price += player_value
 
         
@@ -353,7 +318,7 @@ def dream_team(upcoming_gameweek, team_names, goalie_future_fixture, defender_fu
 
 
     # Display total predicted points and price summary at the end
-    st.markdown(f"<h1 style='text-align: center; color: pink; font-size : 30px;  margin: 1px 0;'>Total Predicted Points: {predicted_points}</h1>", unsafe_allow_html=True)
+    st.markdown(f"<h1 style='text-align: center; color: pink; font-size : 30px;  margin: 1px 0;'>Total Predicted Points: {math.ceil(predicted_points)}</h1>", unsafe_allow_html=True)
     if total_price / 10 > 100:
         st.markdown(f"<h1 style='text-align: center; color: red; font-size: 20px;  margin: 1px 0;'>This configuration exceeds the FPL 100M limit, choose wisely</h1>", unsafe_allow_html=True)
     st.markdown(f"<h1 style='text-align: center; color: green; font-size : 30px;  margin: 1px 0;'>Total Price: {total_price / 10}M</h1>", unsafe_allow_html=True)
