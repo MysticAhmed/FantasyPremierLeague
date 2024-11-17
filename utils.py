@@ -1,6 +1,6 @@
 import pandas as pd
 import requests
-
+import os
 response = requests.get("https://fantasy.premierleague.com/api/bootstrap-static/")
 data = response.json()
 positions = {1: "Goalkeeper", 2: "Defender", 3: "Midfielder", 4: "Forward"}
@@ -25,9 +25,32 @@ def get_team_code(player_id, player_id_to_team_code):
     return player_id_to_team_code.get(player_id, "Unknown Team")
 
 def load_data():
-    # Load future fixtures data from CSV
-    goalie_future_fixture = pd.read_csv(r'CSV_Files\goalie_predictions.csv')
-    defender_future_fixture = pd.read_csv(r'CSV_Files\defender_predictions.csv')
-    midfielder_fixtures_df = pd.read_csv(r'CSV_Files\midfielder_predictions.csv')
-    forward_fixtures_df = pd.read_csv(r'CSV_Files\forward_predictions.csv')
-    return goalie_future_fixture, defender_future_fixture, midfielder_fixtures_df, forward_fixtures_df
+    import os
+    
+    # Get the directory where the script is located
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    
+    # Construct paths using os.path.join for cross-platform compatibility
+    csv_dir = os.path.join(current_dir, 'CSV_Files')
+    
+    try:
+        # Load future fixtures data from CSV
+        goalie_future_fixture = pd.read_csv(os.path.join(csv_dir, 'goalie_predictions.csv'))
+        defender_future_fixture = pd.read_csv(os.path.join(csv_dir, 'defender_predictions.csv'))
+        midfielder_fixtures_df = pd.read_csv(os.path.join(csv_dir, 'midfielder_predictions.csv'))
+        forward_fixtures_df = pd.read_csv(os.path.join(csv_dir, 'forward_predictions.csv'))
+        
+        return goalie_future_fixture, defender_future_fixture, midfielder_fixtures_df, forward_fixtures_df
+    
+    except FileNotFoundError as e:
+        st.error(f"""
+        CSV files not found. Please ensure the following files exist in the CSV_Files directory:
+        - goalie_predictions.csv
+        - defender_predictions.csv
+        - midfielder_predictions.csv
+        - forward_predictions.csv
+        
+        Error: {str(e)}
+        """)
+        # Return empty DataFrames as fallback
+        return pd.DataFrame(), pd.DataFrame(), pd.DataFrame(), pd.DataFrame()
