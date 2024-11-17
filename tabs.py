@@ -208,18 +208,30 @@ def dream_team(upcoming_gameweek, team_names, goalie_future_fixture, defender_fu
     position_counts = {position: 0 for position in SQUAD_REQUIREMENTS}
 
 
-    # Helper function to dynamically filter and select players based on rules
     def filter_players_with_combined_limit(players, max_needed, team_counts, position_counts, position):
+        """
+        Filters players based on team and position limits while considering their status from the FPL API.
+        """
         # Sort players by prediction in descending order
         sorted_players = players.sort_values(by='prediction', ascending=False)
         selected_players = []
 
+        # Create a mapping of player_id to status using the API data
+        player_status_map = {player['id']: player['status'] for player in data['elements']}
+
         for _, player in sorted_players.iterrows():
             player_id = player['player_id']
             team_name = team_names.get(get_team_code(player_id, player_id_to_team_code))
-            is_active = player.get('status', 'a') == 'a'
-            # Enforce constraints: team limit and position limit
-            if team_counts.get(team_name, 0) < MAX_PLAYERS_PER_TEAM and position_counts[position] < max_needed and is_active:
+
+            # Check if the player's status is active (e.g., "a" for available in the FPL API)
+            player_status = player_status_map.get(player_id, None)
+
+            # Enforce constraints: team limit, position limit, and player availability
+            if (
+                team_counts.get(team_name, 0) < MAX_PLAYERS_PER_TEAM and
+                position_counts[position] < max_needed and
+                player_status == "a"  # Only include available players
+            ):
                 selected_players.append(player)
                 team_counts[team_name] = team_counts.get(team_name, 0) + 1
                 position_counts[position] += 1
@@ -227,6 +239,7 @@ def dream_team(upcoming_gameweek, team_names, goalie_future_fixture, defender_fu
             # Stop if the required number of players is reached
             if len(selected_players) == max_needed:
                 break
+
         return pd.DataFrame(selected_players)
 
     # Dynamically select the Starting XI
