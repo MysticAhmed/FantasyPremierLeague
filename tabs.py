@@ -47,7 +47,9 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
         for player in data['elements']
         if positions[player['element_type']] == "Forward" and player['id'] in set(forward_fixtures_df['player_id'])and player['status'] == 'a'   # Only include available players
     ]
-
+    
+    # Add a toggle for dark and light mode
+    theme_choice = st.radio("Choose Theme:", ["Dark Mode", "Light Mode"], horizontal=True)
     # Set the theme based on the user's choice
     current_theme = "dark" if theme_choice == "Dark Mode" else "light"
     current_theme_colors = theme_colors[current_theme]
@@ -107,9 +109,6 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
     selected_defenders_df = defender_future_fixture[defender_future_fixture['player_id'].isin(selected_defender_ids)]
     selected_midfielders_df = midfielder_fixtures_df[midfielder_fixtures_df['player_id'].isin(selected_midfielder_ids)]
     selected_forwards_df = forward_fixtures_df[forward_fixtures_df['player_id'].isin(selected_forward_ids)]
-
-        # Add a toggle for dark and light mode
-    theme_choice = st.radio("Choose Theme:", ["Dark Mode", "Light Mode"], horizontal=True)
 
     # Define color themes
     theme_colors = {
