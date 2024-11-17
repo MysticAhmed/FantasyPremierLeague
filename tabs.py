@@ -350,10 +350,10 @@ def dream_team(upcoming_gameweek, team_names, goalie_future_fixture, defender_fu
             "background_color" : "black",
         },
         "light": {
-            "position_color": "black",
-            "team_color": "gray",
+            "position_color": "red",
+            "team_color": "black",
             "value_color": "green",
-            "points_color": "red",
+            "points_color": "orange",
             "background_color" : "white",
         },
     }
