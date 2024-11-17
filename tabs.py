@@ -107,10 +107,10 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
             "background_color" : "black",
         },
         "light": {
-            "position_color": "black",
-            "team_color": "gray",
+            "position_color": "red",
+            "team_color": "black",
             "value_color": "green",
-            "points_color": "red",
+            "points_color": "orange",
             "background_color" : "white",
         },
     }
