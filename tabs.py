@@ -181,7 +181,7 @@ def dream_team(upcoming_gameweek, team_names, goalie_future_fixture, defender_fu
     total_price = 0
     
     st.markdown(f"<h1 style='text-align: center; color: white; font-size : 30px;'>Best Starting XI for {upcoming_gameweek}</h1>", unsafe_allow_html=True)
-    st.markdown(f"<h1 style='text-align: center; color: red; font-size : 12px;'>Only players with full availibilty are recommended, meaning any player with a status below 100% is not considered</h1>", unsafe_allow_html=True)
+    st.markdown(f"<h1 style='text-align: center; color: red; font-size : 12px;'>Only players above 60% are considered</h1>", unsafe_allow_html=True)
     # Formation input with a unique key
     formation1 = st.selectbox("Pick a formation", ("5-3-2", "4-4-2","4-3-3", "3-5-2", "3-4-3"), key="formation1")
 
@@ -227,7 +227,7 @@ def dream_team(upcoming_gameweek, team_names, goalie_future_fixture, defender_fu
             if (
                 team_counts.get(team_name, 0) < MAX_PLAYERS_PER_TEAM and
                 position_counts[position] < max_needed and
-                player_status > 50  # Only include available players
+                player_status > 60  # Only include available players
             ):
                 selected_players.append(player)
                 team_counts[team_name] = team_counts.get(team_name, 0) + 1
