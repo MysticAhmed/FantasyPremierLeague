@@ -1,7 +1,6 @@
 import pandas as pd
 import requests
 import streamlit as st
-import os
 response = requests.get("https://fantasy.premierleague.com/api/bootstrap-static/")
 data = response.json()
 positions = {1: "Goalkeeper", 2: "Defender", 3: "Midfielder", 4: "Forward"}

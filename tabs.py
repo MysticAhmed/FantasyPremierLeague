@@ -104,19 +104,32 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
             "team_color": "white",
             "value_color": "lime",
             "points_color": "pink",
+            "background_color" : "black",
         },
         "light": {
             "position_color": "black",
             "team_color": "gray",
             "value_color": "green",
             "points_color": "red",
+            "background_color" : "white",
         },
     }
 
     # Set the theme based on the user's choice
     current_theme = "dark" if theme_choice == "Dark Mode" else "light"
     current_theme_colors = theme_colors[current_theme]
-
+    # Apply background and text colors
+    st.markdown(
+        f"""
+        <style>
+        body {{
+            background-color: {current_theme_colors['background_color']};
+            color: {current_theme_colors['text_color']};
+        }}
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
     # Function to display a player's information in a column
     def display_player_in_selected_players(column, player):
         player_id = player["player_id"]
@@ -333,19 +346,33 @@ def dream_team(upcoming_gameweek, team_names, goalie_future_fixture, defender_fu
             "position_color": "yellow",
             "team_color": "white",
             "value_color": "lime",
-            "points_color": "pink",
+            "points_color": "orange",
+            "background_color" : "black",
         },
         "light": {
-            "position_color": "red",
-            "team_color": "black",
+            "position_color": "black",
+            "team_color": "gray",
             "value_color": "green",
-            "points_color": "pink",
+            "points_color": "red",
+            "background_color" : "white",
         },
     }
 
     # Set the theme based on the user's choice
     current_theme = "dark" if theme_choice == "Dark Mode" else "light"
     current_theme_colors = theme_colors[current_theme]
+    # Apply background and text colors
+    st.markdown(
+        f"""
+        <style>
+        body {{
+            background-color: {current_theme_colors['background_color']};
+            color: {current_theme_colors['text_color']};
+        }}
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
 
     # Function to display a player's information in a column
     def display_player_in_column(column, player):
