@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FPL Pitch Layout</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #006400;
+            margin: 0;
+        }
+
+        .pitch {
+            background-color: #007f00;
+            width: 90%;
+            height: 80%;
+            display: grid;
+            grid-template-rows: repeat(4, 1fr);
+            padding: 20px;
+            border: 5px solid #ffffff;
+            border-radius: 15px;
+        }
+
+        .pitch-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .player {
+            width: 80px;
+            height: 80px;
+            background-color: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.9em;
+            font-weight: bold;
+            color: #000;
+            text-align: center;
+            flex-direction: column;
+        }
+    </style>
+</head>
+<body>
+    <div class="pitch">
+        <!-- Goalkeeper -->
+        <div class="pitch-row">
+            <div class="player">{{goalkeeper}}</div>
+        </div>
+
+        <!-- Defenders -->
+        <div class="pitch-row">
+            <div class="player">{{defender1}}</div>
+            <div class="player">{{defender2}}</div>
+            <div class="player">{{defender3}}</div>
+            <div class="player">{{defender4}}</div>
+        </div>
+
+        <!-- Midfielders -->
+        <div class="pitch-row">
+            <div class="player">{{midfielder1}}</div>
+            <div class="player">{{midfielder2}}</div>
+            <div class="player">{{midfielder3}}</div>
+            <div class="player">{{midfielder4}}</div>
+        </div>
+
+        <!-- Forwards -->
+        <div class="pitch-row">
+            <div class="player">{{forward1}}</div>
+            <div class="player">{{forward2}}</div>
+        </div>
+    </div>
+</body>
+</html>
