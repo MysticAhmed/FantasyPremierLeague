@@ -4,6 +4,41 @@ import pandas as pd
 from utils import *
 from Kits import find_kit
 
+st.set_page_config(page_title= "Fantasy Premier Predictions",
+                    page_icon= 'https://cdn-1.webcatalog.io/catalog/fantasy-premier-league/fantasy-premier-league-icon-filled-256.png?v=1675594263665',layout="wide", initial_sidebar_state="auto", menu_items=None)
+# Inject JavaScript for theme detection
+st.markdown(
+    """
+    <script>
+        const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        window.sessionStorage.setItem("theme", isDarkMode ? "dark" : "light");
+    </script>
+    """,
+    unsafe_allow_html=True,
+)
+
+# Retrieve the theme from sessionStorage
+theme_query = st.query_params.get("theme", ["dark"])[0]  # Default to "dark" if undefined
+
+# Define colors for light and dark modes
+theme_colors = {
+    "dark": {
+        "position_color": "yellow",
+        "team_color": "white",
+        "value_color": "lime",
+        "points_color": "pink",
+    },
+    "light": {
+        "position_color": "black",
+        "team_color": "gray",
+        "value_color": "green",
+        "points_color": "red",
+    },
+}
+
+# Get the current theme
+current_theme = theme_query if theme_query in theme_colors else "dark"
+
 def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfielder_fixtures_df, forward_fixtures_df, data, positions, team_names):
     st.markdown(f"<h1 style='text-align: center; color: white; font-size : 30px;'>See how many points your current team may score!</h1>", unsafe_allow_html=True)
 
@@ -15,7 +50,7 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
             'team_code': player['team_code']
         }
         for player in data['elements']
-        if positions[player['element_type']] == "Goalkeeper" and player['id'] in set(goalie_future_fixture['player_id'])
+        if positions[player['element_type']] == "Goalkeeper" and player['id'] in set(goalie_future_fixture['player_id']) and player['status'] == 'a' 
     ]
     all_defenders = [
         {
@@ -24,7 +59,7 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
             'team_code': player['team_code']
         }
         for player in data['elements']
-        if positions[player['element_type']] == "Defender" and player['id'] in set(defender_future_fixture['player_id'])
+        if positions[player['element_type']] == "Defender" and player['id'] in set(defender_future_fixture['player_id']) and player['status'] == 'a' 
     ]
     all_midfielders = [
         {
@@ -33,7 +68,7 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
             'team_code': player['team_code']
         }
         for player in data['elements']
-        if positions[player['element_type']] == "Midfielder" and player['id'] in set(midfielder_fixtures_df['player_id'])
+        if positions[player['element_type']] == "Midfielder" and player['id'] in set(midfielder_fixtures_df['player_id']) and player['status'] == 'a' 
     ]
     all_forwards = [
         {
@@ -42,7 +77,7 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
             'team_code': player['team_code']
         }
         for player in data['elements']
-        if positions[player['element_type']] == "Forward" and player['id'] in set(forward_fixtures_df['player_id'])
+        if positions[player['element_type']] == "Forward" and player['id'] in set(forward_fixtures_df['player_id'])and player['status'] == 'a'   # Only include available players
     ]
 
     # Formation input with a unique key
@@ -100,17 +135,32 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
         team_name = team_names.get(team_code)
         jersey_url = find_kit(team_name)
 
+        # Display player info
+        # Define colors for light and dark modes
+        
         with column:
-            st.markdown(f"<p style='text-align: center; color: yellow; font-size: 17px; margin: 1px 0;'>{player_position}: {player_name}</p>", unsafe_allow_html=True)
-            st.markdown(f"<p style='text-align: center; font-size: 17px; margin: 1px 0; color: white;'>Team: {team_name}</p>", unsafe_allow_html=True)
+            st.markdown(
+                f"<p style='text-align: center; color: {theme_colors[current_theme]['position_color']}; font-size: 17px; margin: 1px 0;'>{player_position}: {player_name}</p>",
+                unsafe_allow_html=True,
+            )
+            st.markdown(
+                f"<p style='text-align: center; font-size: 17px; margin: 1px 0; color: {theme_colors[current_theme]['team_color']};'>Team: {team_name}</p>",
+                unsafe_allow_html=True,
+            )
             st.markdown(
                 f"<div style='display: flex; justify-content: center;'>"
                 f"<img src='{jersey_url}' alt='Jersey' style='width: 60px; height: auto; border-radius: 5px;'>"
                 f"</div>",
-                unsafe_allow_html=True
+                unsafe_allow_html=True,
             )
-            st.markdown(f"<p style='text-align: center; font-size: 17px; margin: 1px 0; color: lime;'>💲: {player_value / 10} M</p>", unsafe_allow_html=True)
-            st.markdown(f"<p style='text-align: center; color: pink; font-size: 17px; margin: 1px 0;'>Predicted Points 🏆: {math.ceil(player['prediction'])}</p>", unsafe_allow_html=True)
+            st.markdown(
+                f"<p style='text-align: center; font-size: 17px; margin: 1px 0; color: {theme_colors[current_theme]['value_color']};'>💲: {player_value / 10} M</p>",
+                unsafe_allow_html=True,
+            )
+            st.markdown(
+                f"<p style='text-align: center; color: {theme_colors[current_theme]['points_color']}; font-size: 17px; margin: 1px 0;'>Predicted Points 🏆: {math.ceil(player['prediction'])}</p>",
+                unsafe_allow_html=True,
+            )
             st.divider()
 
     def display_players_by_position2(goalkeepers, defenders, midfielders, forwards):
@@ -168,9 +218,9 @@ def dream_team(upcoming_gameweek, team_names, goalie_future_fixture, defender_fu
         for _, player in sorted_players.iterrows():
             player_id = player['player_id']
             team_name = team_names.get(get_team_code(player_id, player_id_to_team_code))
-
+            is_active = player.get('status', 'a') == 'a'
             # Enforce constraints: team limit and position limit
-            if team_counts.get(team_name, 0) < MAX_PLAYERS_PER_TEAM and position_counts[position] < max_needed:
+            if team_counts.get(team_name, 0) < MAX_PLAYERS_PER_TEAM and position_counts[position] < max_needed and is_active:
                 selected_players.append(player)
                 team_counts[team_name] = team_counts.get(team_name, 0) + 1
                 position_counts[position] += 1
@@ -297,21 +347,52 @@ def dream_team(upcoming_gameweek, team_names, goalie_future_fixture, defender_fu
         jersey_url = find_kit(team_name)
 
         # Display player info
+        # Define colors for light and dark modes
+        theme_colors = {
+            "dark": {
+                "position_color": "yellow",
+                "team_color": "white",
+                "value_color": "lime",
+                "points_color": "pink",
+            },
+            "light": {
+                "position_color": "black",
+                "team_color": "gray",
+                "value_color": "green",
+                "points_color": "red",
+            },
+        }
+
+        current_theme = "dark"  # Change to "light" for light mode
+
         with column:
-            st.markdown(f"<p style='text-align: center; color: yellow; font-size: 17px; margin: 1px 0;'>{player_position}: {player_name}</p>", unsafe_allow_html=True)
-            st.markdown(f"<p style='text-align: center; font-size: 17px; margin: 1px 0; color: white;'>Team: {team_name}</p>", unsafe_allow_html=True)
+            st.markdown(
+                f"<p style='text-align: center; color: {theme_colors[current_theme]['position_color']}; font-size: 17px; margin: 1px 0;'>{player_position}: {player_name}</p>",
+                unsafe_allow_html=True,
+            )
+            st.markdown(
+                f"<p style='text-align: center; font-size: 17px; margin: 1px 0; color: {theme_colors[current_theme]['team_color']};'>Team: {team_name}</p>",
+                unsafe_allow_html=True,
+            )
             st.markdown(
                 f"<div style='display: flex; justify-content: center;'>"
                 f"<img src='{jersey_url}' alt='Jersey' style='width: 60px; height: auto; border-radius: 5px;'>"
                 f"</div>",
-                unsafe_allow_html=True
+                unsafe_allow_html=True,
             )
-            st.markdown(f"<p style='text-align: center; font-size: 17px; margin: 1px 0; color: lime;'>💲: {player_value / 10} M</p>", unsafe_allow_html=True)
-            st.markdown(f"<p style='text-align: center; color: pink; font-size: 17px; margin: 1px 0;'>Predicted Points 🏆: {math.ceil(player['prediction'])}</p>", unsafe_allow_html=True)
+            st.markdown(
+                f"<p style='text-align: center; font-size: 17px; margin: 1px 0; color: {theme_colors[current_theme]['value_color']};'>💲: {player_value / 10} M</p>",
+                unsafe_allow_html=True,
+            )
+            st.markdown(
+                f"<p style='text-align: center; color: {theme_colors[current_theme]['points_color']}; font-size: 17px; margin: 1px 0;'>Predicted Points 🏆: {math.ceil(player['prediction'])}</p>",
+                unsafe_allow_html=True,
+            )
             st.divider()
-        if is_in_starting_xi(player_id):
-            predicted_points += math.ceil(player["prediction"])
-        total_price += player_value
+
+            if is_in_starting_xi(player_id):
+                predicted_points += math.ceil(player["prediction"])
+            total_price += player_value
 
         
     st.markdown(f"<h2 style='text-align: center; color: white;'>Starting XI</h2>", unsafe_allow_html=True)
