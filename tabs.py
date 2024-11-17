@@ -212,20 +212,22 @@ def dream_team(upcoming_gameweek, team_names, goalie_future_fixture, defender_fu
         selected_players = []
 
         # Create a mapping of player_id to status using the API data
-        player_status_map = {player['id']: player['status'] for player in data['elements']}
+        player_status_map = {player['id']: player['chance_of_playing_next_round'] for player in data['elements']}
 
         for _, player in sorted_players.iterrows():
             player_id = player['player_id']
             team_name = team_names.get(get_team_code(player_id, player_id_to_team_code))
 
             # Check if the player's status is active (e.g., "a" for available in the FPL API)
-            player_status = player_status_map.get(player_id, None)
+            player_status = player_status_map.get(player_id, 100)
+            if player_status == None:
+                player_status = 100
 
             # Enforce constraints: team limit, position limit, and player availability
             if (
                 team_counts.get(team_name, 0) < MAX_PLAYERS_PER_TEAM and
                 position_counts[position] < max_needed and
-                player_status == "a"  # Only include available players
+                player_status > 50  # Only include available players
             ):
                 selected_players.append(player)
                 team_counts[team_name] = team_counts.get(team_name, 0) + 1
