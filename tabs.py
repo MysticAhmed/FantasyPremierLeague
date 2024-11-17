@@ -48,6 +48,20 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
         if positions[player['element_type']] == "Forward" and player['id'] in set(forward_fixtures_df['player_id'])and player['status'] == 'a'   # Only include available players
     ]
 
+    # Set the theme based on the user's choice
+    current_theme = "dark" if theme_choice == "Dark Mode" else "light"
+    current_theme_colors = theme_colors[current_theme]
+    # Apply background and text colors
+    st.markdown(
+        f"""
+        <style>
+        body {{
+            background-color: {current_theme_colors['background_color']};
+        }}
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
     # Formation input with a unique key
     formation = st.selectbox(
         "Pick a formation",
@@ -115,20 +129,6 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
         },
     }
 
-    # Set the theme based on the user's choice
-    current_theme = "dark" if theme_choice == "Dark Mode" else "light"
-    current_theme_colors = theme_colors[current_theme]
-    # Apply background and text colors
-    st.markdown(
-        f"""
-        <style>
-        body {{
-            background-color: {current_theme_colors['background_color']};
-        }}
-        </style>
-        """,
-        unsafe_allow_html=True,
-    )
     # Function to display a player's information in a column
     def display_player_in_selected_players(column, player):
         player_id = player["player_id"]
