@@ -124,7 +124,6 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
         <style>
         body {{
             background-color: {current_theme_colors['background_color']};
-            color: {current_theme_colors['text_color']};
         }}
         </style>
         """,
