@@ -18,7 +18,7 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
             'team_code': player['team_code']
         }
         for player in data['elements']
-        if positions[player['element_type']] == "Goalkeeper" and player['id'] in set(goalie_future_fixture['player_id']) and player['status'] == 'a' 
+        if positions[player['element_type']] == "Goalkeeper" and player['id'] in set(goalie_future_fixture['player_id'])
     ]
     all_defenders = [
         {
@@ -27,7 +27,7 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
             'team_code': player['team_code']
         }
         for player in data['elements']
-        if positions[player['element_type']] == "Defender" and player['id'] in set(defender_future_fixture['player_id']) and player['status'] == 'a' 
+        if positions[player['element_type']] == "Defender" and player['id'] in set(defender_future_fixture['player_id'])
     ]
     all_midfielders = [
         {
@@ -36,7 +36,7 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
             'team_code': player['team_code']
         }
         for player in data['elements']
-        if positions[player['element_type']] == "Midfielder" and player['id'] in set(midfielder_fixtures_df['player_id']) and player['status'] == 'a' 
+        if positions[player['element_type']] == "Midfielder" and player['id'] in set(midfielder_fixtures_df['player_id'])
     ]
     all_forwards = [
         {
@@ -45,7 +45,7 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
             'team_code': player['team_code']
         }
         for player in data['elements']
-        if positions[player['element_type']] == "Forward" and player['id'] in set(forward_fixtures_df['player_id'])and player['status'] == 'a'   # Only include available players
+        if positions[player['element_type']] == "Forward" and player['id'] in set(forward_fixtures_df['player_id'])
     ]
 
     # Add a toggle for dark and light mode
