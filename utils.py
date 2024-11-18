@@ -39,8 +39,18 @@ def load_data():
         defender_future_fixture = pd.read_csv(os.path.join(csv_dir, 'defender_predictions.csv'))
         midfielder_fixtures_df = pd.read_csv(os.path.join(csv_dir, 'midfielder_predictions.csv'))
         forward_fixtures_df = pd.read_csv(os.path.join(csv_dir, 'forward_predictions.csv'))
-        
-        return goalie_future_fixture, defender_future_fixture, midfielder_fixtures_df, forward_fixtures_df
+
+        all_players = pd.concat([goalie_future_fixture, defender_future_fixture, midfielder_fixtures_df, forward_fixtures_df])
+        # Create a new column in all_players to replace player_id with player_name
+        all_players['player_name'] = all_players['player_id'].map(player_id_to_name)
+        # Drop the 'player_id' column if it's no longer needed
+        all_players = all_players.drop(columns=['player_id'])
+        # Reorder columns if necessary to place 'player_name' where 'player_id' was
+        # Example: Move 'player_name' to the first column
+        columns_order = ['player_name'] + [col for col in all_players.columns if col != 'player_name']
+        all_players = all_players[columns_order]
+
+        return goalie_future_fixture, defender_future_fixture, midfielder_fixtures_df, forward_fixtures_df, all_players
     
     except FileNotFoundError as e:
         st.error(f"""
