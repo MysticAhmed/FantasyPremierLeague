@@ -96,7 +96,7 @@ with st.sidebar:
                 # Check if any token in the player's name matches a token in the prompt
                 if player_name_tokens & tokens_in_prompt:  # Set intersection to find matching tokens
                     response = (
-                        f"{row['player_name']} is predicted to have:{math.ceil(row['prediction'])} points 🏆 "
+                        f"{row['player_name']} is predicted to have: {math.ceil(row['prediction'])} points 🏆 "
                     )
                     break
 
