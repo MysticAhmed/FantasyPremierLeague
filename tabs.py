@@ -179,7 +179,29 @@ def dream_team(upcoming_gameweek, team_names, goalie_future_fixture, defender_fu
     # Initialize these locally instead of using global variables
     predicted_points = 0
     total_price = 0
-    
+    # Add a toggle for dark and light mode
+    theme_choice = st.radio("Choose Theme:", ["Dark Mode", "Light Mode"], horizontal=True, key="1")
+    # Define color themes
+    theme_colors = {
+        "dark": {
+            "position_color": "yellow",
+            "team_color": "white",
+            "value_color": "lime",
+            "points_color": "orange",
+            "background_color" : "black",
+        },
+        "light": {
+            "position_color": "red",
+            "team_color": "black",
+            "value_color": "green",
+            "points_color": "orange",
+            "background_color" : "white",
+        },
+    }
+
+    # Set the theme based on the user's choice
+    current_theme = "dark" if theme_choice == "Dark Mode" else "light"
+    current_theme_colors = theme_colors[current_theme]
     st.markdown(f"<h1 style='text-align: center; color: white; font-size : 30px;'>Best Starting XI for {upcoming_gameweek}</h1>", unsafe_allow_html=True)
     # Formation input with a unique key
     formation1 = st.selectbox("Pick a formation", ("5-3-2", "4-4-2","4-3-3", "3-5-2", "3-4-3"), key="formation1")
@@ -351,30 +373,6 @@ def dream_team(upcoming_gameweek, team_names, goalie_future_fixture, defender_fu
     # Function to check if a player is in the starting XI or bench
     def is_in_starting_xi(player_id):
         return player_id in starting_xi_ids
-
-    # Add a toggle for dark and light mode
-    theme_choice = st.radio("Choose Theme:", ["Dark Mode", "Light Mode"], horizontal=True, key="1")
-    # Define color themes
-    theme_colors = {
-        "dark": {
-            "position_color": "yellow",
-            "team_color": "white",
-            "value_color": "lime",
-            "points_color": "orange",
-            "background_color" : "black",
-        },
-        "light": {
-            "position_color": "red",
-            "team_color": "black",
-            "value_color": "green",
-            "points_color": "orange",
-            "background_color" : "white",
-        },
-    }
-
-    # Set the theme based on the user's choice
-    current_theme = "dark" if theme_choice == "Dark Mode" else "light"
-    current_theme_colors = theme_colors[current_theme]
 
     # Function to display a player's information in a column
     def display_player_in_column(column, player):
