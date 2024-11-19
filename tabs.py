@@ -222,7 +222,7 @@ def dream_team(upcoming_gameweek, team_names, goalie_future_fixture, defender_fu
     # Initialize counters
     team_counts = {}
     position_counts = {position: 0 for position in SQUAD_REQUIREMENTS}
-    knocked = st.toggle("Include Knocked Players")
+    knocked = st.toggle("Include Injured Players")
 
     def filter_players_with_combined_limit(players, max_needed, team_counts, position_counts, position):
         """
