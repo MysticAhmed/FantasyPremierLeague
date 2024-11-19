@@ -33,7 +33,7 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
 
     page_text = """
     <style>
-    .st-emotion-cache-1qg05tj{
+    [data-testid="stSelectbox"]{
         color : "#FFFFFF"
     }
     </style>
