@@ -11,9 +11,6 @@ page_bg_image = """
 [data-testid="stAppViewContainer"]{
 background-color:#0E1117
 }
-.stMarkdown, .stText, .stSelectbox, .stNumber {
-    color: #FFFFFF !important;
-}
 """
 st.markdown(page_bg_image, unsafe_allow_html=True)
 if 'formation' not in st.session_state:
@@ -34,7 +31,7 @@ for gameweek in gameweeks:
         upcoming_gameweek = str(gameweek['name'])
         break
 
-tab1, tab2, tab3 = st.tabs(["Dream Team", "Own Team Predictions", "Ask your AI Manager!"])
+tab1, tab2, tab3 = st.tabs([f"<span style='color: white;'>Dream Team</span>", "Own Team Predictions", "Ask your AI Manager!"])
 
 with tab3:
     st.markdown("""
