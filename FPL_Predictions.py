@@ -4,7 +4,7 @@ from utils import *
 from Kits import *
 import requests
 import re
-st.set_page_config("FPL Dream Team", page_icon = "https://rightanglecreative.co.uk/wp-content/uploads/2020/04/Blog-Post-260816-Premier-League-Logo-Thumbnail.jpg", layout = "centered", initial_sidebar_state= "auto", menu_items=  None)
+st.set_page_config("FPL Dream Team", page_icon = "https://rightanglecreative.co.uk/wp-content/uploads/2020/04/Blog-Post-260816-Premier-League-Logo-Thumbnail.jpg", layout = "wide", initial_sidebar_state= "auto", menu_items=  None)
 # Initialize session state
 if 'formation' not in st.session_state:
     st.session_state.formation = "5-4-1"
