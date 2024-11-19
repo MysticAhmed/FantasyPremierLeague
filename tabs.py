@@ -36,7 +36,7 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
     [data-testid="stAppViewContainer"]{
     background-color:#0E1117}
     .st-c1 {
-        color: #FFFFFF;
+        color: #000000;
     }
     </style>
     """
