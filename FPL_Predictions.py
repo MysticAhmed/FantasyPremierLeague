@@ -10,6 +10,7 @@ page_bg_image = """
 <style>
 [data-testid="stAppViewContainer"]{
 background-color:#0E1117
+text-color:#FFFFFF
 }
 """
 st.markdown(page_bg_image, unsafe_allow_html=True)
