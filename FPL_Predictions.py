@@ -115,7 +115,20 @@ with tab3:
                     team_name = team_names.get(team_code)
                     player_name_tokens = set(re.findall(r'\w+', row['player_name'].lower()))  # Tokenize the player's name
                     # Check if any token in the player's name matches a token in the prompt
-                    if player_name_tokens & tokens_in_prompt:  # Set intersection to find matching tokens
+                    # Special edge case handling
+                    if "m.salah" in prompt.lower():
+                        player_id  = get_player_id("M.Salah", player_name_to_id)
+                        team_code = get_team_code(player_id, player_id_to_team_code)
+                        player_position = get_player_position(player_id, player_id_to_position)
+                        player_value = get_player_value(player_id, player_id_to_value)
+                        team_name = team_names.get(team_code)
+
+                        response = (
+                            f"With a value of <span style='color: green;'>{player_value / 10}M</span>, M.Salah plays as a {player_position} for <span style='color: red;'>{team_name}</span>. "
+                            f"<p style='color: maroon;'>Predicted points: {math.ceil(row['prediction'])} 🏆</p>"
+                        )
+
+                    elif player_name_tokens & tokens_in_prompt :  # Set intersection to find matching tokens
                         response = (
                             f"With a value of <span style='color: green;'>{player_value / 10}M</span>, {row['player_name']} plays as a {player_position} for <span style='color: red;'>{team_name}</span>. "
                             f"<p style='color: maroon;'>Predicted points: {math.ceil(row['prediction'])} 🏆</p>"
