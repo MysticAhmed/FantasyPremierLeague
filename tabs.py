@@ -33,10 +33,8 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
 
     page_text = """
     <style>
-    [data-testid="stAppViewContainer"]{
-    background-color:#0E1117}
-    .st-c1 {
-        color: #000000;
+    .st-emotion-cache-1qg05tj{
+        color : "#FFFFFF"
     }
     </style>
     """

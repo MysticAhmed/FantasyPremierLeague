@@ -43,6 +43,7 @@ with tab3:
     .chat-bubble {
         border-radius: 10px;
         color : gray;
+        background-color : gray;
         padding: 10px;
         margin: 10px 0;
         width: fit-content;
