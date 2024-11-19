@@ -4,9 +4,6 @@ import pandas as pd
 from utils import *
 from Kits import find_kit
 
-st.set_page_config(page_title= "Fantasy Premier Predictions",
-                    page_icon= 'https://cdn-1.webcatalog.io/catalog/fantasy-premier-league/fantasy-premier-league-icon-filled-256.png?v=1675594263665',layout="wide", initial_sidebar_state="auto", menu_items=None)
-
 def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfielder_fixtures_df, forward_fixtures_df, data, positions, team_names):
     st.markdown(f"<h1 style='text-align: center; color: white; font-size : 30px;'>See how many points your current team may score!</h1>", unsafe_allow_html=True)
     
@@ -223,7 +220,7 @@ def dream_team(upcoming_gameweek, team_names, goalie_future_fixture, defender_fu
     team_counts = {}
     position_counts = {position: 0 for position in SQUAD_REQUIREMENTS}
     knocked = st.toggle("Include Injured Players")
-
+    player_status_map = {player['id']: player['chance_of_playing_next_round'] for player in data['elements']}
     def filter_players_with_combined_limit(players, max_needed, team_counts, position_counts, position):
         """
         Filters players based on team and position limits while considering their status from the FPL API.
@@ -233,12 +230,11 @@ def dream_team(upcoming_gameweek, team_names, goalie_future_fixture, defender_fu
         selected_players = []
 
         # Create a mapping of player_id to status using the API data
-        player_status_map = {player['id']: player['chance_of_playing_next_round'] for player in data['elements']}
+        
 
         for _, player in sorted_players.iterrows():
             player_id = player['player_id']
             team_name = team_names.get(get_team_code(player_id, player_id_to_team_code))
-
             # Check if the player's status is active (e.g., "a" for available in the FPL API)
             player_status = player_status_map.get(player_id, 100)
             if player_status == None:
@@ -384,6 +380,9 @@ def dream_team(upcoming_gameweek, team_names, goalie_future_fixture, defender_fu
         player_value = get_player_value(player_id, player_id_to_value)
         team_name = team_names.get(team_code)
         jersey_url = find_kit(team_name)
+        player_status = player_status_map.get(player_id, 100)
+        if player_status == None:
+            player_status = 100
 
         with column:
             st.markdown(
@@ -408,7 +407,13 @@ def dream_team(upcoming_gameweek, team_names, goalie_future_fixture, defender_fu
                 f"<p style='text-align: center; color: {current_theme_colors['points_color']}; font-size: 17px; margin: 1px 0;'>Predicted Points 🏆: {math.ceil(player['prediction'])}</p>",
                 unsafe_allow_html=True,
             )
+            if player_status < 100:
+                st.markdown(
+                f"<p style='text-align: center; color: red; font-size: 17px; margin: 1px 0;'> ⚠️ Injured: {player_status}% chance of playing</p>",
+                unsafe_allow_html=True,
+            )
             st.divider()
+
 
 
         if is_in_starting_xi(player_id):

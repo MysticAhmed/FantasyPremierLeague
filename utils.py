@@ -1,6 +1,7 @@
 import pandas as pd
 import requests
 import streamlit as st
+import os
 response = requests.get("https://fantasy.premierleague.com/api/bootstrap-static/")
 data = response.json()
 positions = {1: "Goalkeeper", 2: "Defender", 3: "Midfielder", 4: "Forward"}
@@ -26,7 +27,6 @@ def get_team_code(player_id, player_id_to_team_code):
     return player_id_to_team_code.get(player_id, "Unknown Team")
 
 def load_data():
-    import os
     
     # Get the directory where the script is located
     current_dir = os.path.dirname(os.path.abspath(__file__))
