@@ -31,39 +31,6 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
         elif positions[player['element_type']] == "Forward" and player_id in set(forward_fixtures_df['player_id']):
             all_forwards[player_id] = player_data
 
-    # Add a toggle for dark and light mode
-    theme_choice = st.radio("Choose Theme:", ["Dark Mode", "Light Mode"], horizontal=True)
-    # Define color themes
-    theme_colors = {
-        "dark": {
-            "position_color": "yellow",
-            "team_color": "white",
-            "value_color": "lime",
-            "points_color": "pink",
-            "background_color" : "black",
-        },
-        "light": {
-            "position_color": "red",
-            "team_color": "black",
-            "value_color": "green",
-            "points_color": "orange",
-            "background_color" : "white",
-        },
-    }
-    # Set the theme based on the user's choice
-    current_theme = "dark" if theme_choice == "Dark Mode" else "light"
-    current_theme_colors = theme_colors[current_theme]
-    # Apply background and text colors
-    st.markdown(
-        f"""
-        <style>
-        body {{
-            background-color: {current_theme_colors['background_color']};
-        }}
-        </style>
-        """,
-        unsafe_allow_html=True,
-    )
     # Formation input with a unique key
     formation = st.selectbox(
         "Pick a formation",
@@ -130,11 +97,11 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
 
         with column:
             st.markdown(
-                f"<p style='text-align: center; color: {current_theme_colors['position_color']}; font-size: 17px; margin: 1px 0;'>{player_position}: {player_name}</p>",
+                f"<p style='text-align: center; color: yellow; font-size: 17px; margin: 1px 0;'>{player_position}: {player_name}</p>",
                 unsafe_allow_html=True,
             )
             st.markdown(
-                f"<p style='text-align: center; font-size: 17px; margin: 1px 0; color: {current_theme_colors['team_color']};'>Team: {team_name}</p>",
+                f"<p style='text-align: center; font-size: 17px; margin: 1px 0; color: white;'>Team: {team_name}</p>",
                 unsafe_allow_html=True,
             )
             st.markdown(
@@ -144,11 +111,11 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
                 unsafe_allow_html=True,
             )
             st.markdown(
-                f"<p style='text-align: center; font-size: 17px; margin: 1px 0; color: {current_theme_colors['value_color']};'>💲: {player_value / 10} M</p>",
+                f"<p style='text-align: center; font-size: 17px; margin: 1px 0; color: lime;'>💲: {player_value / 10} M</p>",
                 unsafe_allow_html=True,
             )
             st.markdown(
-                f"<p style='text-align: center; color: {current_theme_colors['points_color']}; font-size: 17px; margin: 1px 0;'>Predicted Points 🏆: {math.ceil(player['prediction'])}</p>",
+                f"<p style='text-align: center; color: orange; font-size: 17px; margin: 1px 0;'>Predicted Points 🏆: {math.ceil(player['prediction'])}</p>",
                 unsafe_allow_html=True,
             )
             st.divider()
@@ -176,29 +143,7 @@ def dream_team(upcoming_gameweek, team_names, goalie_future_fixture, defender_fu
     # Initialize these locally instead of using global variables
     predicted_points = 0
     total_price = 0
-    # Add a toggle for dark and light mode
-    theme_choice = st.radio("Choose Theme:", ["Dark Mode", "Light Mode"], horizontal=True, key="1")
-    # Define color themes
-    theme_colors = {
-        "dark": {
-            "position_color": "yellow",
-            "team_color": "white",
-            "value_color": "lime",
-            "points_color": "orange",
-            "background_color" : "black",
-        },
-        "light": {
-            "position_color": "red",
-            "team_color": "black",
-            "value_color": "green",
-            "points_color": "orange",
-            "background_color" : "white",
-        },
-    }
 
-    # Set the theme based on the user's choice
-    current_theme = "dark" if theme_choice == "Dark Mode" else "light"
-    current_theme_colors = theme_colors[current_theme]
     st.markdown(f"<h1 style='text-align: center; color: white; font-size : 30px;'>Best Starting XI for {upcoming_gameweek}</h1>", unsafe_allow_html=True)
     # Formation input with a unique key
     formation1 = st.selectbox("Pick a formation", ("5-3-2", "4-4-2","4-3-3", "3-5-2", "3-4-3"), key="formation1")
@@ -386,11 +331,11 @@ def dream_team(upcoming_gameweek, team_names, goalie_future_fixture, defender_fu
 
         with column:
             st.markdown(
-                f"<p style='text-align: center; color: {current_theme_colors['position_color']}; font-size: 17px; margin: 1px 0;'>{player_position}: {player_name}</p>",
+                f"<p style='text-align: center; color: yellow; font-size: 17px; margin: 1px 0;'>{player_position}: {player_name}</p>",
                 unsafe_allow_html=True,
             )
             st.markdown(
-                f"<p style='text-align: center; font-size: 17px; margin: 1px 0; color: {current_theme_colors['team_color']};'>Team: {team_name}</p>",
+                f"<p style='text-align: center; font-size: 17px; margin: 1px 0; color: white;'>Team: {team_name}</p>",
                 unsafe_allow_html=True,
             )
             st.markdown(
@@ -400,11 +345,11 @@ def dream_team(upcoming_gameweek, team_names, goalie_future_fixture, defender_fu
                 unsafe_allow_html=True,
             )
             st.markdown(
-                f"<p style='text-align: center; font-size: 17px; margin: 1px 0; color: {current_theme_colors['value_color']};'>💲: {player_value / 10} M</p>",
+                f"<p style='text-align: center; font-size: 17px; margin: 1px 0; color: lime;'>💲: {player_value / 10} M</p>",
                 unsafe_allow_html=True,
             )
             st.markdown(
-                f"<p style='text-align: center; color: {current_theme_colors['points_color']}; font-size: 17px; margin: 1px 0;'>Predicted Points 🏆: {math.ceil(player['prediction'])}</p>",
+                f"<p style='text-align: center; color: orange; font-size: 17px; margin: 1px 0;'>Predicted Points 🏆: {math.ceil(player['prediction'])}</p>",
                 unsafe_allow_html=True,
             )
             if player_status < 100:
