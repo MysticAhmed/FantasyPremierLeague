@@ -11,7 +11,7 @@ page_bg_image = """
 [data-testid="stAppViewContainer"]{
 background-color:#0E1117}
 
-.stTabs > .tablist > .react-tabs__tab {
+.st-c1 {
     color: #FFFFFF;
 }
 """
