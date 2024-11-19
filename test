@@ -1,0 +1,18 @@
+from utils import *
+import re
+goalie_future_fixture, defender_future_fixture, midfielder_fixtures_df, forward_fixtures_df, all_players = load_data()
+# Extract position and value using regular expressions
+prompt = "Recommend me a midfielder worth 7M"
+position_match = re.search(r"(goalkeeper|defender|midfielder|forward)", prompt.lower())
+value_match = re.search(r"(\d+\.?\d*)m", prompt.lower())  # Look for a number followed by "M"
+
+# Extract the position and value
+position = position_match.group(1).capitalize() if position_match else None
+value = float(value_match.group(1)) if value_match else None
+
+# Run the recommendation function if both position and value are found
+if position and value:
+    recommendation = player_for_value(midfielder_fixtures_df, value)
+    print(recommendation)
+else:
+    response = "Please provide both a valid position and a value (e.g., 'recommend a defender for 5.5M')."

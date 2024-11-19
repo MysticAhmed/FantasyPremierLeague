@@ -9,6 +9,7 @@ player_name_to_id = {player['web_name']: player['id'] for player in data['elemen
 player_id_to_value = {player['id']: player['now_cost'] for player in data['elements']}
 player_id_to_position = {player['id']: positions[player['element_type']] for player in data['elements']}
 player_id_to_team_code = {player['id']: player['team_code'] for player in data['elements']}
+team_names = {team['code']: team['name'] for team in data['teams']}
 
 def get_player_name(player_id, player_id_to_name):
     return player_id_to_name.get(player_id, "Unknown Player")
@@ -43,12 +44,6 @@ def load_data():
         all_players = pd.concat([goalie_future_fixture, defender_future_fixture, midfielder_fixtures_df, forward_fixtures_df])
         # Create a new column in all_players to replace player_id with player_name
         all_players['player_name'] = all_players['player_id'].map(player_id_to_name)
-        # Drop the 'player_id' column if it's no longer needed
-        all_players = all_players.drop(columns=['player_id'])
-        # Reorder columns if necessary to place 'player_name' where 'player_id' was
-        # Example: Move 'player_name' to the first column
-        columns_order = ['player_name'] + [col for col in all_players.columns if col != 'player_name']
-        all_players = all_players[columns_order]
 
         return goalie_future_fixture, defender_future_fixture, midfielder_fixtures_df, forward_fixtures_df, all_players
     
@@ -64,3 +59,17 @@ def load_data():
         """)
         # Return empty DataFrames as fallback
         return pd.DataFrame(), pd.DataFrame(), pd.DataFrame(), pd.DataFrame()
+def player_for_value(dataset, value):
+    dataset = dataset.sort_values(by='prediction', ascending=False)
+    player_status_map = {player['id']: player['chance_of_playing_next_round'] for player in data['elements']}
+    for _, row in dataset.iterrows():
+        player_status = player_status_map.get(row['player_id'], 100)
+        if player_status == None:
+            player_status = 100
+
+        if player_status > 50 and get_player_value(row['player_id'], player_id_to_value)/10 <= value:
+
+            return f"I recommend <span style='color: maroon;'>{get_player_name(row['player_id'], player_id_to_name)}</span> from <span style='color: blue;'> {team_names.get(get_team_code(row['player_id'], player_id_to_team_code), player_id_to_team_code)}</span>"
+    return "I could not find a suitable player with that value"
+
+
