@@ -14,6 +14,7 @@ background-color:#0E1117}
 .st-c1 {
     color: #FFFFFF;
 }
+</style>
 """
 st.markdown(page_bg_image, unsafe_allow_html=True)
 if 'formation' not in st.session_state:
