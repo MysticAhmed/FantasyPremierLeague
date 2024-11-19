@@ -34,7 +34,7 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
     page_text = """
     <style>
     [data-testid="stSelectBox"]{
-        color : "#FFFFFF"
+        color : "#000000"
     }
     </style>
     """
