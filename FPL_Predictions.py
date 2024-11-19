@@ -4,6 +4,7 @@ from utils import *
 from Kits import *
 import requests
 import re
+st.set_page_config("FPL Dream Team", page_icon = "https://assets.turbologo.com/blog/en/2020/01/19084653/Premier-League-symbol.png", layout = "centered", initial_sidebar_state= "auto", menu_items=  None)
 # Initialize session state
 if 'formation' not in st.session_state:
     st.session_state.formation = "5-4-1"
