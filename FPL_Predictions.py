@@ -20,37 +20,6 @@ st.markdown(page_bg_image, unsafe_allow_html=True)
 if 'formation' not in st.session_state:
     st.session_state.formation = "5-4-1"
 
-# Inject CSS for changing the selectbox label color
-    st.markdown(
-    """
-    <style>
-    /* Change the color of the selectbox label */
-    div.stSelectbox label {
-        color: white !important;
-    }
-
-    .stSelectbox {
-    background-color: rgba(0, 0, 0, 0);
-    border: 0px none rgb(229, 227, 223);
-    color: rgb(229, 227, 223);
-    font-family: "Source Sans Pro", sans-serif;
-    font-size: 16px;
-    padding: 0px;
-    width: 570px;
-    }
-
-    .stSelectbox:focus {
-        outline: none; /* Remove default focus outline */
-    }
-
-    /* You might need to adjust the selector for the parent container */
-    .stSelectboxParent { 
-    display: block;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-    )
 
 goalie_future_fixture, defender_future_fixture, midfielder_fixtures_df, forward_fixtures_df, all_players = load_data()
 # Create mappings for player_id to name and player_id to position
