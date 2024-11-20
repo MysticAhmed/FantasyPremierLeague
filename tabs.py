@@ -36,8 +36,13 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
         """
         <style>
         div.stSelectbox label {
-            color: white !important;
+            color: white !important;}
+
+        /* Change the text inside the select box */
+        div.stSelectbox > div[data-baseweb="select"] {
+            color: black !important;
         }
+        
         </style>
         """,
         unsafe_allow_html=True
