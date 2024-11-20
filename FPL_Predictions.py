@@ -21,7 +21,33 @@ background-color:#0E1117;
 st.markdown(
 """
 <style>
+/* Set the background color for the select box */
+.stSelectbox {
+    background-color: rgb(38, 39, 48) !important; /* Base background color */
+    color: white !important; /* Text color */
+}
 
+/* Set the hover color for the dropdown options */
+div[data-baseweb="menu"] {
+    background-color: rgb(38, 39, 48) !important; /* Dropdown background */
+}
+
+div[data-baseweb="option"]:hover {
+    background-color: rgb(38, 39, 48) !important; /* Hover background */
+    color: white !important; /* Hover text color */
+}
+
+/* Ensure input field inside the select box matches the design */
+.stSelectbox input {
+    background-color: rgb(38, 39, 48) !important;
+    color: white !important;
+    border: none !important;
+}
+
+/* Ensure dropdown arrow matches the style */
+.stSelectbox svg {
+    fill: white !important; /* Arrow color */
+}
 /* Change the color of the selectbox label */
 div.stSelectbox label {
     color: white !important;
