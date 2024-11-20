@@ -27,7 +27,7 @@ div.stSelectbox label {
 
 .stSelectbox {
 background-color: rgba(0, 0, 0, 0);
-border: 0px none rgb(229, 227, 223);
+border: 0px none rgb(38, 39, 48);
 color: rgb(229, 227, 223);
 font-family: "Source Sans Pro", sans-serif;
 font-size: 16px;
