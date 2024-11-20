@@ -33,26 +33,43 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
 
     # Inject CSS for changing the selectbox label color
     st.markdown(
-        """
-        <style>
-    /* Change the color of the label */
+    """
+    <style>
+    /* Change the color of the selectbox label */
     div.stSelectbox label {
         color: white !important;
     }
 
-    /* Change the background color of the dropdown (optional) */
-    div.stSelectbox div[data-baseweb="select"] {
-        background-color: gray !important;
+    /* Change the text color inside the select box */
+    div[data-baseweb="select"] input {
+        color: black !important;
     }
 
-    /* Change the background color of dropdown options */
-    .st-dk {
-        background-color: gray !important;
+    /* Change the background color of the dropdown (fully including options) */
+    div[data-baseweb="select"] {
+        background-color: white !important;
+        border-radius: 5px !important;
+    }
+
+    /* Change the dropdown options' background and text colors */
+    ul[data-baseweb="menu"] {
+        background-color: white !important;
+        border-radius: 5px !important;
+    }
+
+    ul[data-baseweb="menu"] li {
+        color: black !important;
+    }
+
+    /* Optional hover effect for dropdown options */
+    ul[data-baseweb="menu"] li:hover {
+        background-color: #f0f0f0 !important;
     }
     </style>
-        """,
-        unsafe_allow_html=True
+    """,
+    unsafe_allow_html=True
     )
+
     # Formation input with a unique key
     formation = st.selectbox(
         "Pick a formation",
