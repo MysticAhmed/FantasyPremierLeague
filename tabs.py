@@ -60,9 +60,10 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
         border: 1px solid #ccc !important; /* Optional: Border styling */
     }
 
-    #bui396val-1
-    {
-        background-color = rgb(38, 39, 48)
+    /* Optional: Add hover effect for dropdown options */
+    ul[data-baseweb="menu"] li:hover {
+        background-color: #444444 !important; /* Slightly darker gray on hover */
+        color: white !important; /* Ensure text color remains visible */
     }
     </style>
     """,
