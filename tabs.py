@@ -46,8 +46,8 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
         border-radius: 5px !important; /* Optional: Smooth corners */
     }
 
-    div[data-testid="select"] .st-dk {
-        background-color: rgb(38, 39, 48) !important; /* Change this to your desired color */
+    div > li.st-emotion-cache-doy61h.e1811lun0:first-child {
+        background-color: rgb(38, 39, 48);
     }
 
     div[data-testid="stTooltipHoverTarget"]{
@@ -60,8 +60,9 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
         border: 1px solid #ccc !important; /* Optional: Border styling */
     }
 
-    div > li.st-emotion-cache-1ppef92.e1811lun0:first-child {
-        background-color: rgb(38, 39, 48);
+    /* Your CSS */
+    li#your-selector:hover {
+    background-color: #f0f0f0; /* Or your desired color */
     }
 
     
