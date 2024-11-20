@@ -31,21 +31,22 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
         elif positions[player['element_type']] == "Forward" and player_id in set(forward_fixtures_df['player_id']):
             all_forwards[player_id] = player_data
 
-    selectbox_text = """
-    <style>
-    #tabs-bui5-tabpanel-0 > div > div > div > div.stElementContainer.element-container.st-key-formation1.st-emotion-cache-13d682y.e1f1d6gn4 > div > label > div > p 
-    {
-        color = "#FFFFFF"
-    }
-    </style>
-    """
-    st.markdown(selectbox_text, unsafe_allow_html=True)
     # Formation input with a unique key
     formation = st.selectbox(
         "Pick a formation",
         ("5-4-1", "5-3-2", "5-2-3", "5-1-4", "4-4-2", "4-3-3", "4-2-4", "4-1-5", "3-5-2", "3-4-3", "3-3-4", "3-2-5", "3-1-6", "2-5-3", "2-4-4", "2-3-5", "2-2-6"),
         key="formation2"
     )
+
+    selectbox_text = """
+    <style>
+        #tabs-bui5-tabpanel-0 > div > div > div > div.stElementContainer.element-container.st-key-formation1.st-emotion-cache-13d682y.e1f1d6gn4 > div > label > div > p 
+        {
+            color = "#FFFFFF"
+        }
+    </style>
+    """
+    st.markdown(selectbox_text, unsafe_allow_html=True)
 
     # Parse the formation input to determine the number of players per position
     try:

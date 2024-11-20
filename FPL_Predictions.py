@@ -21,13 +21,13 @@ if 'formation' not in st.session_state:
     st.session_state.formation = "5-4-1"
 
 selectbox_text = """
-    <style>
+<style>
     #tabs-bui5-tabpanel-0 > div > div > div > div.stElementContainer.element-container.st-key-formation1.st-emotion-cache-13d682y.e1f1d6gn4 > div > label > div > p 
     {
         color = "#FFFFFF"
     }
-    </style>
-    """
+</style>
+"""
 st.markdown(selectbox_text, unsafe_allow_html=True)
 
 goalie_future_fixture, defender_future_fixture, midfielder_fixtures_df, forward_fixtures_df, all_players = load_data()
