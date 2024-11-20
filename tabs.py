@@ -39,9 +39,11 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
     div.stSelectbox label {
         color: white !important;
     }
-    /* Change the background color of the select box */
-    .st-dk {
-        background-color: rgb(38, 39, 48) !important;
+
+     /* Change the background color of the selectbox container */
+    div[data-testid="stSelectbox"] .st-dk {
+        background-color: rgb(38, 39, 48) !important; /* Change this to your desired color */
+        border-radius: 5px !important; /* Optional: Smooth corners */
     }
 
     </style>
