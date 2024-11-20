@@ -40,6 +40,7 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
 
     selectbox_text = """
     <style>
+    #tabs-bui140-tabpanel-0 > div > div > div > div.stElementContainer.element-container.st-key-formation1.st-emotion-cache-u3482e.e1f1d6gn4 > div > label{
         font-family: "Source Sans Pro", sans-serif;
         font-weight: 400;
         line-height: 1.6;
@@ -59,6 +60,7 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
         flex-direction: row;
         -webkit-box-align: center;
         align-items: center;
+    }
     </style>
     """
     st.markdown(selectbox_text, unsafe_allow_html=True)
