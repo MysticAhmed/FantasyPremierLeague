@@ -10,6 +10,7 @@ page_bg_image = """
 <style>
 [data-testid="stAppViewContainer"]{
 background-color:#0E1117}
+opacity : 1;
 
 .st-c1 {
     color: #FFFFFF;
@@ -20,11 +21,6 @@ background-color:#0E1117}
 st.markdown(
 """
 <style>
-/* Hover state */
-div:hover {
-    background-color: #90EE90; /* Solid light green */
-    opacity: 1; /* Ensure no transparency */
-}
 
 /* Change the color of the selectbox label */
 div.stSelectbox label {
