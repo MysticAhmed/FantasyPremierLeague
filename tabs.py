@@ -41,7 +41,7 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
     }
     /* Change the background color of the select box */
     .st-dk {
-        background-color: white !important;
+        background-color: rgb(38, 39, 48) !important;
     }
 
     </style>
