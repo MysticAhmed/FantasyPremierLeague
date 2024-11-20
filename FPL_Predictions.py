@@ -24,22 +24,36 @@ if 'formation' not in st.session_state:
     st.markdown(
     """
     <style>
-    /* Change the color of the selectbox label */
-    div.stSelectbox label {
-        color: white !important;
-    }
-
-     /* Change the background color of the selectbox container */
+    /* Change the selectbox container to white with black text */
     div[data-testid="stSelectbox"] .st-dk {
-        background-color: white !important; /* Change this to your desired color */
-        border-radius: 5px !important; /* Optional: Smooth corners */
+        background-color: white !important; /* Set background to white */
+        color: black !important; /* Text color */
+        border-radius: 5px !important; /* Optional: Rounded corners */
+        border: 1px solid #ccc !important; /* Optional: Border styling */
     }
 
-    /* Change the text color of dropdown options */
+    /* Change the text inside the selectbox */
+    div[data-testid="stSelectbox"] .st-dk * {
+        color: black !important; /* Ensure all text is black */
+    }
+
+    /* Change the dropdown background and options to white */
+    ul[data-baseweb="menu"] {
+        background-color: white !important; /* Dropdown background */
+        border-radius: 5px !important; /* Rounded corners */
+        border: 1px solid #ccc !important; /* Optional: Border styling */
+    }
+
+    /* Ensure dropdown option text is black */
     ul[data-baseweb="menu"] li {
-        color: black !important; /* Set option text color to white */
-        font-size: 14px !important; /* Optional: Adjust font size */
-        padding: 8px !important; /* Optional: Add padding for better spacing */
+        color: black !important; /* Option text color */
+        padding: 8px !important; /* Optional: Better spacing */
+    }
+
+    /* Set hover effect: white background with black text */
+    ul[data-baseweb="menu"] li:hover {
+        background-color: #f0f0f0 !important; /* Slight gray hover */
+        color: black !important; /* Text remains black */
     }
     </style>
     """,
