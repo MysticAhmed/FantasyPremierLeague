@@ -42,7 +42,7 @@ div[data-baseweb="option"]:hover {
 }
 
 .st-cx {
-    background-color: rgb(40, 39, 48) !important;
+    background-color: rgb(50, 39, 48) !important;
 }
 /* Change the color of the selectbox label */
 div.stSelectbox label {
