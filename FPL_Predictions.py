@@ -61,6 +61,7 @@ width: 570px;
 </style>""", unsafe_allow_html= True)
 
 st.markdown(page_bg_image, unsafe_allow_html=True)
+st.rerun()
 if 'formation' not in st.session_state:
     st.session_state.formation = "5-4-1"
 
