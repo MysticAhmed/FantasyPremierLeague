@@ -33,13 +33,12 @@ div[data-baseweb="option"]:hover {
 /* Ensure input field inside the select box matches the design */
 .stSelectbox input {
     background-color: rgb(38, 39, 48) !important;
-    color: white !important;
     border: none !important;
 }
 
 /* Ensure dropdown arrow matches the style */
 .stSelectbox svg {
-    fill: white !important; /* Arrow color */
+    fill: rgb(38, 39, 48)  !important; /* Arrow color */
 }
 /* Change the color of the selectbox label */
 div.stSelectbox label {
