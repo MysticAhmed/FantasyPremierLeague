@@ -20,22 +20,10 @@ background-color:#0E1117}
 st.markdown(
 """
 <style>
-::-webkit-scrollbar {
-    background-image: none;
-    background-position-x: 0%;
-    background-position-y: 0%;
-    background-size: auto;
-    background-repeat: repeat;
-    background-attachment: scroll;
-    background-origin: padding-box;
-    background-clip: border-box;
-    background-color: rgb(38, 39, 48);
-    border-top-left-radius: 100px;
-    border-top-right-radius: 100px;
-    border-bottom-right-radius: 100px;
-    border-bottom-left-radius: 100px;
-    height: 6px;
-    width: 6px;
+/* Hover state */
+div:hover {
+    background-color: #90EE90; /* Solid light green */
+    opacity: 1; /* Ensure no transparency */
 }
 
 /* Change the color of the selectbox label */
