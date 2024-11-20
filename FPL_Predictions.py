@@ -31,41 +31,15 @@ if 'formation' not in st.session_state:
 
      /* Change the background color of the selectbox container */
     div[data-testid="stSelectbox"] .st-dk {
-        background-color: rgb(38, 39, 48) !important; /* Change this to your desired color */
+        background-color: white !important; /* Change this to your desired color */
         border-radius: 5px !important; /* Optional: Smooth corners */
     }
 
-    div > li.st-emotion-cache-doy61h.e1811lun0:first-child {
-        background-color: rgb(38, 39, 48);
-    }
-
-    div[data-testid="stTooltipHoverTarget"]{
-        background-color: rgb(38, 39, 48) !important; /* Change this to your desired color */
-    }
-    /* Change the background color of the dropdown options */
-    ul[data-testid="stSelectboxVirtualDropdown"] {
-        background-color: rgb(38, 39, 48) !important; /* Dropdown background color */
-        border-radius: 5px !important; /* Optional: Smooth corners */
-        border: 1px solid #ccc !important; /* Optional: Border styling */
-    }
-
-    #bui396val-1
-    {
-        background-color: rgb(38, 39, 48) !important
-    }
-
-    .st-emotion-cache-1ppef92:hover, .st-emotion-cache-1ppef92:active, .st-emotion-cache-1ppef92:focus-visible
-    {
-        background-color: rgb(38, 39, 48) !important
-    }
-
-    #bui236__anchor {
-        background-color: rgb(38, 39, 48) !important;
-    }
-
-    select:hover {
-        outline: none; /* Removes the white highlight */
-        box-shadow: none; /* Removes any additional shadow if present */
+    /* Change the text color of dropdown options */
+    ul[data-baseweb="menu"] li {
+        color: black !important; /* Set option text color to white */
+        font-size: 14px !important; /* Optional: Adjust font size */
+        padding: 8px !important; /* Optional: Add padding for better spacing */
     }
     </style>
     """,
