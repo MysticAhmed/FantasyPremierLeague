@@ -44,7 +44,6 @@ div[data-baseweb="option"]:hover {
 div[data-baseweb="option"]:hover {
     background-color: rgb(38, 39, 48) !important; /* Set background color */
     border: 1px solid rgb(38, 39, 48) !important; /* Match border to background */
-    color: rgb(38, 39, 48) !important; /* Set text color */
 }
 /* Change the color of the selectbox label */
 div.stSelectbox label {
