@@ -205,14 +205,13 @@ with tab3:
     st.markdown('</div>', unsafe_allow_html=True)
 with tab1:
     predicted_points, total_price = dream_team(
-        upcoming_gameweek, 
-        team_names, 
-        goalie_future_fixture, 
-        defender_future_fixture, 
-        midfielder_fixtures_df, 
-        forward_fixtures_df
+    upcoming_gameweek, 
+    team_names, 
+    goalie_future_fixture, 
+    defender_future_fixture, 
+    midfielder_fixtures_df, 
+    forward_fixtures_df
     )
-
 with tab2:
     own_team_predictions(
         goalie_future_fixture, 

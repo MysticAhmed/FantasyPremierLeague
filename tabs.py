@@ -220,7 +220,10 @@ def dream_team(upcoming_gameweek, team_names, goalie_future_fixture, defender_fu
 
     # Combine the Starting XI into a single DataFrame
     starting_xi_display = pd.concat([starting_goalkeepers, starting_defenders, starting_midfielders, starting_forwards])
-
+    starting_xi_display = starting_xi_display.sort_values(by= "prediction", ascending=False)
+    captain = starting_xi_display.iloc[0]
+    vice = starting_xi_display.iloc[1]
+    
     #Reset count for bench
     position_counts = {position: 0 for position in SQUAD_REQUIREMENTS}
     # Function to calculate total bench points
@@ -328,10 +331,12 @@ def dream_team(upcoming_gameweek, team_names, goalie_future_fixture, defender_fu
         team_name = team_names.get(team_code)
         jersey_url = find_kit(team_name)
         player_status = player_status_map.get(player_id, 100)
+        player_prediction = math.ceil(player['prediction'])
         if player_status == None:
             player_status = 100
 
         with column:
+
             st.markdown(
                 f"<p style='text-align: center; color: yellow; font-size: 17px; margin: 1px 0;'>{player_position}: {player_name}</p>",
                 unsafe_allow_html=True,
@@ -351,7 +356,7 @@ def dream_team(upcoming_gameweek, team_names, goalie_future_fixture, defender_fu
                 unsafe_allow_html=True,
             )
             st.markdown(
-                f"<p style='text-align: center; color: orange; font-size: 17px; margin: 1px 0;'>Predicted Points 🏆: {math.ceil(player['prediction'])}</p>",
+                f"<p style='text-align: center; color: orange; font-size: 17px; margin: 1px 0;'>Predicted Points 🏆: {player_prediction}</p>",
                 unsafe_allow_html=True,
             )
             if player_status < 100:
@@ -359,10 +364,15 @@ def dream_team(upcoming_gameweek, team_names, goalie_future_fixture, defender_fu
                 f"<p style='text-align: center; color: red; font-size: 17px; margin: 1px 0;'> ⚠️ Injured: {player_status}% chance of playing</p>",
                 unsafe_allow_html=True,
             )
+            if player_id == captain['player_id']:
+                st.markdown("<p style='text-align: center; color: gold; font-size: 17px;'>🌟 Captain</p>", unsafe_allow_html=True,)
+                player_prediction = math.ceil(player['prediction']) * 2
+            if player_id == vice['player_id']:
+                st.markdown("<p style='text-align: center; color: gold; font-size: 16px;'>⭐ Vice </p>", unsafe_allow_html=True,)
+                player_prediction = math.ceil(player['prediction'])
+
             st.divider()
-
-
-
+        
         if is_in_starting_xi(player_id):
             predicted_points += math.ceil(player["prediction"])
         total_price += player_value
