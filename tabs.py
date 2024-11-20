@@ -44,6 +44,12 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
     div.stSelectbox div[data-baseweb="select"] {
         background-color: gray !important;
     }
+
+    /* Change the background color of dropdown options */
+    ul[data-baseweb="menu"] {
+        background-color: gray !important;
+        border-radius: 5px !important; /* Optional: Smooth corners */
+    }
     </style>
         """,
         unsafe_allow_html=True
