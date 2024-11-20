@@ -59,9 +59,12 @@ if 'formation' not in st.session_state:
         background: rgb(38, 39, 48) !important
     }
 
-    div > li.st-emotion-cache-doy61h.e1811lun0:first-child
-    {
-        background: rgb(38, 39, 48) !important
+    .st-emotion-cache-1ppef92 option:focus {
+        background-color: rgb(38, 39, 48) !important;
+    }
+
+    .st-emotion-cache-1ppef92 option:hover {
+        background-color: rgb(38, 39, 48) !important;
     }
     </style>
     """,
