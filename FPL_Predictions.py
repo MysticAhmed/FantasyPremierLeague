@@ -41,9 +41,9 @@ div[data-baseweb="option"]:hover {
     fill: rgb(38, 39, 48)  !important; /* Arrow color */
 }
 
-.st-emotion-cache-1r4qj8v
+div[data-baseweb = "select"]
 {
-    color-scheme: dark;
+    background-color : rgb(38, 39, 48) ;
 }
 /* Change the color of the selectbox label */
 div.stSelectbox label {
