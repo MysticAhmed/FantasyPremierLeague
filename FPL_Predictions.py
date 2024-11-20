@@ -59,8 +59,9 @@ if 'formation' not in st.session_state:
         background: rgb(38, 39, 48) !important
     }
 
-    div[data-testid="stSelectbox"] {
-        background-color: lightblue !important;
+    div > li.st-emotion-cache-doy61h.e1811lun0:first-child
+    {
+        background: rgb(38, 39, 48) !important
     }
     </style>
     """,
