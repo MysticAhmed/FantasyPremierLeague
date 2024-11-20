@@ -56,7 +56,7 @@ if 'formation' not in st.session_state:
 
     .st-emotion-cache-1ppef92:hover, .st-emotion-cache-1ppef92:active, .st-emotion-cache-1ppef92:focus-visible
     {
-        background-color : rgb(38, 39, 48) !important
+        background: rgb(38, 39, 48) !important
     }
 
     .st-emotion-cache-1ppef92 {
