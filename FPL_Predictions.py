@@ -20,6 +20,12 @@ background-color:#0E1117}
 st.markdown(
 """
 <style>
+/* Change background color on hover */
+div[role="option"]:hover {
+background-color: #90EE90 !important; /* Light green */
+color: black !important; /* Text color */
+}
+
 /* Change the color of the selectbox label */
 div.stSelectbox label {
     color: white !important;
@@ -34,11 +40,8 @@ font-size: 16px;
 padding: 0px;
 width: 570px;
 }
-/* Change highlight color of dropdown options */
-li[data-baseweb="menu-item"]:hover {
-    background-color: #90EE90; /* Light green highlight */
-}
 </style>""", unsafe_allow_html= True)
+
 st.markdown(page_bg_image, unsafe_allow_html=True)
 if 'formation' not in st.session_state:
     st.session_state.formation = "5-4-1"
