@@ -35,7 +35,7 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
     # Formation input with a unique key
     formation = st.selectbox(
         "Pick a formation",
-        ("5-4-1", "5-3-2", "5-2-3", "5-1-4", "4-4-2", "4-3-3", "4-2-4", "4-1-5", "3-5-2", "3-4-3", "3-3-4", "3-2-5", "3-1-6", "2-5-3", "2-4-4", "2-3-5", "2-2-6"),
+        ("5-3-2", "4-4-2","4-3-3", "3-5-2", "3-4-3"),
         key="formation2"
     )
  
