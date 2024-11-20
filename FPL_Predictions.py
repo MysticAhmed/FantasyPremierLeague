@@ -43,6 +43,8 @@ div[data-baseweb="option"]:hover {
 
 .st-cx {
     background-color: rgb(38, 39, 48) !important;
+    border-style: solid;
+    border-color: white;
 }
 /* Change the color of the selectbox label */
 div.stSelectbox label {
@@ -51,8 +53,6 @@ div.stSelectbox label {
 
 .stSelectbox {
 background-color: rgba(0, 0, 0, 0);
-border-style: solid;
-border-color: white;
 color: rgb(38, 39, 48);
 font-family: "Source Sans Pro", sans-serif;
 font-size: 16px;
