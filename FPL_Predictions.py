@@ -62,6 +62,11 @@ if 'formation' not in st.session_state:
     #bui236__anchor {
         background-color: rgb(38, 39, 48) !important;
     }
+
+    select:hover {
+        outline: none; /* Removes the white highlight */
+        box-shadow: none; /* Removes any additional shadow if present */
+    }
     </style>
     """,
     unsafe_allow_html=True
