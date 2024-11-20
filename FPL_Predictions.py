@@ -54,12 +54,7 @@ if 'formation' not in st.session_state:
         background-color : rgb(38, 39, 48) !important
     }
 
-    .st-emotion-cache-1ppef92:hover, .st-emotion-cache-1ppef92:active, .st-emotion-cache-1ppef92:focus-visible
-    {
-        background-color : rgb(38, 39, 48) !important
-    }
-
-    #bui2318__anchor {
+    .st-emotion-cache-1ppef92 {
         background-color: rgb(38, 39, 48);
     }
     </style>
