@@ -20,8 +20,23 @@ background-color:#0E1117}
 st.markdown(
 """
 <style>
+li.unselected {
+    display: none;
+    background-color: #000;
+}
 ul#selectUl:hover li.unselected {
     background-color: #000;
+}
+ul#selectUl:hover li,
+ul#selectUl:hover li.unselected {
+    display: list-item;
+}
+ul#selectUl:hover li {
+    background-color: #fc0;
+}
+ul#selectUl li:hover,
+ul#selectUl li.unselected:hover {
+    background-color: #f90;
 }
 
 /* Change the color of the selectbox label */
