@@ -6,7 +6,17 @@ import requests
 import re
 st.set_page_config("FPL Dream Team", page_icon = "https://rightanglecreative.co.uk/wp-content/uploads/2020/04/Blog-Post-260816-Premier-League-Logo-Thumbnail.jpg", layout = "wide", initial_sidebar_state= "auto", menu_items=  None)
 # Initialize session state
+page_bg_image = """
+<style>
+[data-testid="stAppViewContainer"]{
+background-color:#0E1117}
 
+.st-c1 {
+    color: #FFFFFF;
+}
+</style>
+"""
+st.markdown(page_bg_image, unsafe_allow_html=True)
 if 'formation' not in st.session_state:
     st.session_state.formation = "5-4-1"
 
