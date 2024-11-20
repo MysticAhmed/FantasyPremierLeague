@@ -58,6 +58,10 @@ if 'formation' not in st.session_state:
     {
         background-color : rgb(38, 39, 48) !important
     }
+
+    #bui2318__anchor {
+        background-color: rgb(38, 39, 48);
+    }
     </style>
     """,
     unsafe_allow_html=True
