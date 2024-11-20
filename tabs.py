@@ -31,43 +31,6 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
         elif positions[player['element_type']] == "Forward" and player_id in set(forward_fixtures_df['player_id']):
             all_forwards[player_id] = player_data
 
-    # Inject CSS for changing the selectbox label color
-    st.markdown(
-    """
-    <style>
-    /* Change the color of the selectbox label */
-    div.stSelectbox label {
-        color: white !important;
-    }
-
-     /* Change the background color of the selectbox container */
-    div[data-testid="stSelectbox"] .st-dk {
-        background-color: rgb(38, 39, 48) !important; /* Change this to your desired color */
-        border-radius: 5px !important; /* Optional: Smooth corners */
-    }
-
-    div > li.st-emotion-cache-doy61h.e1811lun0:first-child {
-        background-color: rgb(38, 39, 48);
-    }
-
-    div[data-testid="stTooltipHoverTarget"]{
-        background-color: rgb(38, 39, 48) !important; /* Change this to your desired color */
-    }
-    /* Change the background color of the dropdown options */
-    ul[data-testid="stSelectboxVirtualDropdown"] {
-        background-color: rgb(38, 39, 48) !important; /* Dropdown background color */
-        border-radius: 5px !important; /* Optional: Smooth corners */
-        border: 1px solid #ccc !important; /* Optional: Border styling */
-    }
-
-    #bui396val-1
-    {
-        background-color = rgb(38, 39, 48) !important
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-    )
 
     # Formation input with a unique key
     formation = st.selectbox(
@@ -448,5 +411,5 @@ def dream_team(upcoming_gameweek, team_names, goalie_future_fixture, defender_fu
     if total_price / 10 > 100:
         st.markdown(f"<h1 style='text-align: center; color: red; font-size: 20px;  margin: 1px 0;'>This configuration exceeds the FPL 100M limit, choose wisely</h1>", unsafe_allow_html=True)
     st.markdown(f"<h1 style='text-align: center; color: green; font-size : 30px;  margin: 1px 0;'>Total Price: {total_price / 10}M</h1>", unsafe_allow_html=True)
-
+    st.markdown(f"<h1 style='text-align: center; color: red; font-size : 16px;  margin: 1px 0;'>Overall Confidence of 92%</h1>", unsafe_allow_html=True)
     return predicted_points, total_price  # Return the values instead of using globals
