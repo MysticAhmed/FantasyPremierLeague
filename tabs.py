@@ -40,10 +40,25 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
 
     selectbox_text = """
     <style>
-        #tabs-bui140-tabpanel-0 > div > div > div > div.stElementContainer.element-container.st-key-formation1.st-emotion-cache-13d682y.e1f1d6gn4 > div > label
-        {
-            color = "#FFFFFF"
-        }
+        font-family: "Source Sans Pro", sans-serif;
+        font-weight: 400;
+        line-height: 1.6;
+        text-size-adjust: 100%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        -webkit-font-smoothing: auto;
+        color-scheme: dark;
+        box-sizing: border-box;
+        font-size: 14px;
+        color: rgb(255, 255, 255);
+        display: flex;
+        visibility: visible;
+        margin-bottom: 0.25rem;
+        height: auto;
+        min-height: 1.5rem;
+        vertical-align: middle;
+        flex-direction: row;
+        -webkit-box-align: center;
+        align-items: center;
     </style>
     """
     st.markdown(selectbox_text, unsafe_allow_html=True)
