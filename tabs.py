@@ -35,7 +35,7 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
         """
         <style>
         label[data-baseweb="select"] {
-            color: white !important;
+            color: cyan !important;
         }
         </style>
         """,
