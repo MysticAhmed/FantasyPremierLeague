@@ -31,39 +31,23 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
         elif positions[player['element_type']] == "Forward" and player_id in set(forward_fixtures_df['player_id']):
             all_forwards[player_id] = player_data
 
+    st.markdown(
+        """
+        <style>
+        label[data-baseweb="select"] {
+            color: white !important;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+        )
     # Formation input with a unique key
     formation = st.selectbox(
         "Pick a formation",
         ("5-4-1", "5-3-2", "5-2-3", "5-1-4", "4-4-2", "4-3-3", "4-2-4", "4-1-5", "3-5-2", "3-4-3", "3-3-4", "3-2-5", "3-1-6", "2-5-3", "2-4-4", "2-3-5", "2-2-6"),
         key="formation2"
     )
-
-    selectbox_text = """
-    <style>
-    #tabs-bui140-tabpanel-0 > div > div > div > div.stElementContainer.element-container.st-key-formation1.st-emotion-cache-u3482e.e1f1d6gn4 > div > label{
-        font-family: "Source Sans Pro", sans-serif;
-        font-weight: 400;
-        line-height: 1.6;
-        text-size-adjust: 100%;
-        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-        -webkit-font-smoothing: auto;
-        color-scheme: dark;
-        box-sizing: border-box;
-        font-size: 14px;
-        color: rgb(255, 255, 255);
-        display: flex;
-        visibility: visible;
-        margin-bottom: 0.25rem;
-        height: auto;
-        min-height: 1.5rem;
-        vertical-align: middle;
-        flex-direction: row;
-        -webkit-box-align: center;
-        align-items: center;
-    }
-    </style>
-    """
-    st.markdown(selectbox_text, unsafe_allow_html=True)
+ 
 
     # Parse the formation input to determine the number of players per position
     try:
