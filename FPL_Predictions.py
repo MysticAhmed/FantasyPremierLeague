@@ -24,36 +24,23 @@ if 'formation' not in st.session_state:
     st.markdown(
     """
     <style>
-    /* Change the selectbox container to white with black text */
-    div[data-testid="stSelectbox"] .st-dk {
-        background-color: white !important; /* Set background to white */
-        color: black !important; /* Text color */
-        border-radius: 5px !important; /* Optional: Rounded corners */
-        border: 1px solid #ccc !important; /* Optional: Border styling */
+    .stSelectbox {
+    background-color: rgba(0, 0, 0, 0);
+    border: 0px none rgb(229, 227, 223);
+    color: rgb(229, 227, 223);
+    font-family: "Source Sans Pro", sans-serif;
+    font-size: 16px;
+    padding: 0px;
+    width: 570px;
     }
 
-    /* Change the text inside the selectbox */
-    div[data-testid="stSelectbox"] .st-dk * {
-        color: black !important; /* Ensure all text is black */
+    .stSelectbox:focus {
+        outline: none; /* Remove default focus outline */
     }
 
-    /* Change the dropdown background and options to white */
-    ul[data-baseweb="menu"] {
-        background-color: white !important; /* Dropdown background */
-        border-radius: 5px !important; /* Rounded corners */
-        border: 1px solid #ccc !important; /* Optional: Border styling */
-    }
-
-    /* Ensure dropdown option text is black */
-    ul[data-baseweb="menu"] li {
-        color: black !important; /* Option text color */
-        padding: 8px !important; /* Optional: Better spacing */
-    }
-
-    /* Set hover effect: white background with black text */
-    ul[data-baseweb="menu"] li:hover {
-        background-color: #f0f0f0 !important; /* Slight gray hover */
-        color: black !important; /* Text remains black */
+    /* You might need to adjust the selector for the parent container */
+    .stSelectboxParent { 
+    display: block;
     }
     </style>
     """,
