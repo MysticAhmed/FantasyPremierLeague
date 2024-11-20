@@ -19,6 +19,17 @@ background-color:#0E1117}
 st.markdown(page_bg_image, unsafe_allow_html=True)
 if 'formation' not in st.session_state:
     st.session_state.formation = "5-4-1"
+
+selectbox_text = """
+    <style>
+    #tabs-bui5-tabpanel-0 > div > div > div > div.stElementContainer.element-container.st-key-formation1.st-emotion-cache-13d682y.e1f1d6gn4 > div > label > div > p 
+    {
+        color = "#FFFFFF"
+    }
+    </style>
+    """
+st.markdown(selectbox_text, unsafe_allow_html=True)
+
 goalie_future_fixture, defender_future_fixture, midfielder_fixtures_df, forward_fixtures_df, all_players = load_data()
 # Create mappings for player_id to name and player_id to position
 response = requests.get("https://fantasy.premierleague.com/api/bootstrap-static/")
