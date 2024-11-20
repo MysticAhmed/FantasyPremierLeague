@@ -39,36 +39,11 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
     div.stSelectbox label {
         color: white !important;
     }
-
-    #tabs-bui3-tabpanel-0 > div > div > div > div.stElementContainer.element-container.st-key-formation1.st-emotion-cache-13d682y.e1f1d6gn4 > div > div > div > div.st-ay.st-af.st-ai.st-dl.st-dm.st-ag.st-b0.st-ah.st-cd.st-d8.st-d9.st-da.st-dn
-    {
-        text-size-adjust: 100%;
-        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-        -webkit-font-smoothing: auto;
-        color-scheme: dark;
-        font-family: "Source Sans Pro", sans-serif;
-        font-weight: normal;
-        font-size: 1rem;
-        line-height: 1.4;
-        cursor: text;
-        color: #FFFFFF;
-        position: relative;
-        display: flex;
-        flex-wrap: nowrap;
-        -webkit-box-flex: 1;
-        flex-grow: 1;
-        box-sizing: border-box;
-        -webkit-box-align: center;
-        align-items: center;
-        overflow: hidden;
-        padding-top: 0.5rem;
-        padding-bottom: 0.5rem;
-        padding-left: 0.5rem;
-        flex-shrink: 1;
-        flex-basis: 0%;
-        padding-right: 0.5rem;
-
+    /* Change the background color of the select box */
+    .st-dk {
+        background-color: white !important;
     }
+
     </style>
     """,
     unsafe_allow_html=True
