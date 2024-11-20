@@ -53,6 +53,11 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
         border: 1px solid #ccc !important; /* Optional: Border styling */
     }
 
+    /* Change the background color of the dropdown options */
+    div[data-testid="data-baseweb="popover""] {
+        background-color: rgb(38, 39, 48) !important; /* Dropdown background color */
+    }
+
     </style>
     """,
     unsafe_allow_html=True
