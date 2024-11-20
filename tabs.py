@@ -355,26 +355,27 @@ def dream_team(upcoming_gameweek, team_names, goalie_future_fixture, defender_fu
                 f"<p style='text-align: center; font-size: 17px; margin: 1px 0; color: lime;'>💲: {player_value / 10} M</p>",
                 unsafe_allow_html=True,
             )
+            if player_id == captain['player_id']:
+                player_prediction = math.ceil(player['prediction']) * 2
+                st.markdown("<p style='text-align: center; color: gold; font-size: 17px;'>🌟 Captain</p>", unsafe_allow_html=True,)
+
+            if player_id == vice['player_id']:
+                st.markdown("<p style='text-align: center; color: gold; font-size: 16px;'>⭐ Vice </p>", unsafe_allow_html=True,)
             st.markdown(
                 f"<p style='text-align: center; color: orange; font-size: 17px; margin: 1px 0;'>Predicted Points 🏆: {player_prediction}</p>",
                 unsafe_allow_html=True,
             )
+
             if player_status < 100:
                 st.markdown(
                 f"<p style='text-align: center; color: red; font-size: 17px; margin: 1px 0;'> ⚠️ Injured: {player_status}% chance of playing</p>",
                 unsafe_allow_html=True,
             )
-            if player_id == captain['player_id']:
-                st.markdown("<p style='text-align: center; color: gold; font-size: 17px;'>🌟 Captain</p>", unsafe_allow_html=True,)
-                player_prediction = math.ceil(player['prediction']) * 2
-            if player_id == vice['player_id']:
-                st.markdown("<p style='text-align: center; color: gold; font-size: 16px;'>⭐ Vice </p>", unsafe_allow_html=True,)
-                player_prediction = math.ceil(player['prediction'])
-
+        
             st.divider()
         
         if is_in_starting_xi(player_id):
-            predicted_points += math.ceil(player["prediction"])
+            predicted_points += player_prediction
         total_price += player_value
 
         
