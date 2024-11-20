@@ -47,7 +47,7 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
     }
 
     div > li.st-emotion-cache-doy61h.e1811lun0:first-child {
-        background-color: rgb(38, 39, 48);
+        background-color: rgb(38, 39, 48); !important
     }
 
     div[data-testid="stTooltipHoverTarget"]{
@@ -60,10 +60,9 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
         border: 1px solid #ccc !important; /* Optional: Border styling */
     }
 
-    /* Optional: Add hover effect for dropdown options */
-    ul[data-baseweb="menu"] li:hover {
-        background-color: #444444 !important; /* Slightly darker gray on hover */
-        color: white !important; /* Ensure text color remains visible */
+    #bui396val-1
+    {
+        background-color = rgb(38, 39, 48) !important
     }
     </style>
     """,
