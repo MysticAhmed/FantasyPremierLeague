@@ -4,7 +4,7 @@ import pandas as pd
 from utils import *
 from Kits import find_kit
 
-def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfielder_fixtures_df, forward_fixtures_df, data, positions, team_names):
+def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfielder_fixtures_df, forward_fixtures_df, data, positions, team_names, captained_player):
     st.markdown(f"<h1 style='text-align: center; color: white; font-size : 30px;'>See how many points your current team may score!</h1>", unsafe_allow_html=True)
     
     # Initialize dictionaries for players
@@ -66,8 +66,15 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
         return selected["id"] if selected and selected["id"] else None
 
 
-    def calculate_points(players_df):
-        return sum(math.ceil(player['prediction']) for _, player in players_df.iterrows())
+    def calculate_points(players_df, captained):
+        total = 0
+        for _, player in players_df.iterrows():
+            if captained_player == player['player_id']:
+                points = math.ceil(player['prediction'])*2
+            else:
+                points = math.ceil(player['prediction'])
+            total += points
+        return total
 
     # Dropdowns for each position
     selected_goalie = position_selectbox("Goalkeeper", all_goalies, "goalie")
@@ -87,15 +94,20 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
     selected_midfielders_df = midfielder_fixtures_df[midfielder_fixtures_df['player_id'].isin(selected_midfielder_ids)]
     selected_forwards_df = forward_fixtures_df[forward_fixtures_df['player_id'].isin(selected_forward_ids)]
 
+
+    predicted_total = 0
     # Function to display a player's information in a column
     def display_player_in_selected_players(column, player):
+        nonlocal predicted_total
         player_id = player["player_id"]
         team_code = get_team_code(player_id, player_id_to_team_code)
         player_name = get_player_name(player_id, player_id_to_name)
         player_position = get_player_position(player_id, player_id_to_position)
         player_value = get_player_value(player_id, player_id_to_value)
         team_name = team_names.get(team_code)
+        predicted = math.ceil(player['prediction'])
         jersey_url = find_kit(team_name)
+    
 
         with column:
             st.markdown(
@@ -116,10 +128,15 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
                 f"<p style='text-align: center; font-size: 17px; margin: 1px 0; color: lime;'>💲: {player_value / 10} M</p>",
                 unsafe_allow_html=True,
             )
+            if captained_player == player_id:
+                predicted = math.ceil(player['prediction']) * 2
+                st.markdown("<p style='text-align: center; color: gold; font-size: 17px;'>🌟 Captain</p>", unsafe_allow_html=True,)
             st.markdown(
-                f"<p style='text-align: center; color: orange; font-size: 17px; margin: 1px 0;'>Predicted Points 🏆: {math.ceil(player['prediction'])}</p>",
+                f"<p style='text-align: center; color: orange; font-size: 17px; margin: 1px 0;'>Predicted Points 🏆: {predicted}</p>",
                 unsafe_allow_html=True,
             )
+
+            predicted_total += predicted
             st.divider()
         
     def display_players_by_position2(goalkeepers, defenders, midfielders, forwards):
@@ -131,7 +148,7 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
 
     if st.button("Generate Predictions for Selected Players"):
         selected_players = pd.concat([selected_goalie_df, selected_defenders_df, selected_midfielders_df, selected_forwards_df])
-        predicted_points = calculate_points(selected_players)
+        predicted_points = calculate_points(selected_players, captained_player)
         display_players_by_position2(selected_goalie_df, selected_defenders_df, selected_midfielders_df, selected_forwards_df)
         st.markdown(
             f"<h1 style='text-align: center; color: pink; font-size : 30px; margin: 1px 0;'>Total Predicted Points: {predicted_points}</h1>",

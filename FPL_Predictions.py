@@ -213,6 +213,25 @@ with tab1:
     forward_fixtures_df
     )
 with tab2:
+    # Default index to 0 for placeholder
+    options = [{"label": "Select a player", "id": None}] + [
+        {
+            "label": f"{get_player_name(row['player_id'], player_id_to_name)} ({team_names[get_team_code(row['player_id'], player_id_to_team_code)]})",
+            "id": row['player_id'],
+        }
+        for _, row in all_players.iterrows()  # Use iterrows if all_players is a DataFrame
+    ]
+
+    # Create the selectbox for the captain
+    selected = st.selectbox(
+        "Captain", 
+        options, 
+        format_func=lambda option: option["label"], 
+        key="Captain_selectbox"
+    )
+
+    # Retrieve the selected player's ID
+    captain_id = selected["id"] if selected and selected["id"] else None
     own_team_predictions(
         goalie_future_fixture, 
         defender_future_fixture, 
@@ -220,5 +239,7 @@ with tab2:
         forward_fixtures_df, 
         data, 
         positions,
-        team_names
+        team_names,
+        captain_id
+
     )
