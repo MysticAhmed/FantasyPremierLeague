@@ -60,6 +60,10 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
         border: 1px solid #ccc !important; /* Optional: Border styling */
     }
 
+    div > li.st-emotion-cache-1ppef92.e1811lun0:first-child {
+        color: rgb(38, 39, 48);
+    }
+
     
 
     </style>
