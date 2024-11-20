@@ -38,7 +38,8 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
         color = "#FFFFFF"
     }
     </style>
-"""
+    """
+    st.markdown(selectbox_text, unsafe_allow_html=True)
     # Formation input with a unique key
     formation = st.selectbox(
         "Pick a formation",
