@@ -20,23 +20,22 @@ background-color:#0E1117}
 st.markdown(
 """
 <style>
-li.unselected {
-    display: none;
-    background-color: #000;
-}
-ul#selectUl:hover li.unselected {
-    background-color: #000;
-}
-ul#selectUl:hover li,
-ul#selectUl:hover li.unselected {
-    display: list-item;
-}
-ul#selectUl:hover li {
-    background-color: #fc0;
-}
-ul#selectUl li:hover,
-ul#selectUl li.unselected:hover {
-    background-color: #f90;
+::-webkit-scrollbar {
+    background-image: none;
+    background-position-x: 0%;
+    background-position-y: 0%;
+    background-size: auto;
+    background-repeat: repeat;
+    background-attachment: scroll;
+    background-origin: padding-box;
+    background-clip: border-box;
+    background-color: rgb(38, 39, 48);
+    border-top-left-radius: 100px;
+    border-top-right-radius: 100px;
+    border-bottom-right-radius: 100px;
+    border-bottom-left-radius: 100px;
+    height: 6px;
+    width: 6px;
 }
 
 /* Change the color of the selectbox label */
