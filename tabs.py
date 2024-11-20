@@ -47,7 +47,7 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
     }
 
     div > li.st-emotion-cache-doy61h.e1811lun0:first-child {
-        background-color: rgb(38, 39, 48); !important
+        background-color: rgb(38, 39, 48);
     }
 
     div[data-testid="stTooltipHoverTarget"]{
@@ -58,6 +58,11 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
         background-color: rgb(38, 39, 48) !important; /* Dropdown background color */
         border-radius: 5px !important; /* Optional: Smooth corners */
         border: 1px solid #ccc !important; /* Optional: Border styling */
+    }
+
+    #bui396val-1
+    {
+        background-color = rgb(38, 39, 48) !important
     }
     </style>
     """,
