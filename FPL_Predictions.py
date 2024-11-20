@@ -40,6 +40,12 @@ div[data-baseweb="option"]:hover {
 .stSelectbox svg {
     fill: rgb(38, 39, 48)  !important; /* Arrow color */
 }
+
+div[data-baseweb="option"]:hover {
+    background-color: rgb(38, 39, 48) !important; /* Set background color */
+    border: 1px solid rgb(38, 39, 48) !important; /* Match border to background */
+    color: white !important; /* Set text color */
+}
 /* Change the color of the selectbox label */
 div.stSelectbox label {
     color: white !important;
