@@ -34,11 +34,11 @@ font-size: 16px;
 padding: 0px;
 width: 570px;
 }
-.target:hover,
-.target:focus 
-{
-  transition-property: background-color;
-  background-color: rgb(38, 39, 48);
+.st-fj {
+    background-color: rgb(38, 39, 48);
+    color: rgb(38, 39, 48);
+    transition-property: color, background-color;
+
 }
 </style>""", unsafe_allow_html= True)
 st.markdown(page_bg_image, unsafe_allow_html=True)
