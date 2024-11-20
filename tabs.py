@@ -42,7 +42,7 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
     <style>
         #tabs-bui140-tabpanel-0 > div > div > div > div.stElementContainer.element-container.st-key-formation1.st-emotion-cache-13d682y.e1f1d6gn4 > div > label
         {
-            color = "#FFFFFF"
+            color = "#000000"
         }
     </style>
     """
