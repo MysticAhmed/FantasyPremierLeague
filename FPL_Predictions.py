@@ -34,11 +34,9 @@ font-size: 16px;
 padding: 0px;
 width: 570px;
 }
-.st-fj {
-    background-color: rgb(38, 39, 48);
-    color: rgb(38, 39, 48);
-    transition-property: color, background-color;
-
+/* Change highlight color of dropdown options */
+li[data-baseweb="menu-item"]:hover {
+    background-color: #90EE90; /* Light green highlight */
 }
 </style>""", unsafe_allow_html= True)
 st.markdown(page_bg_image, unsafe_allow_html=True)
