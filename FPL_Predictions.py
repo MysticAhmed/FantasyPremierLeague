@@ -16,6 +16,25 @@ background-color:#0E1117}
 }
 </style>
 """
+
+st.markdown(
+"""
+<style>
+/* Change the color of the selectbox label */
+div.stSelectbox label {
+    color: white !important;
+}
+
+.stSelectbox {
+background-color: rgba(0, 0, 0, 0);
+border: 0px none rgb(229, 227, 223);
+color: rgb(229, 227, 223);
+font-family: "Source Sans Pro", sans-serif;
+font-size: 16px;
+padding: 0px;
+width: 570px;
+}
+</style>""", unsafe_allow_html= True)
 st.markdown(page_bg_image, unsafe_allow_html=True)
 if 'formation' not in st.session_state:
     st.session_state.formation = "5-4-1"
