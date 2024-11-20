@@ -34,6 +34,10 @@ font-size: 16px;
 padding: 0px;
 width: 570px;
 }
+.target:hover,
+.target:focus {
+  background-color: rgb(38, 39, 48);
+}
 </style>""", unsafe_allow_html= True)
 st.markdown(page_bg_image, unsafe_allow_html=True)
 if 'formation' not in st.session_state:
