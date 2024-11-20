@@ -40,7 +40,7 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
 
     selectbox_text = """
     <style>
-        #tabs-bui5-tabpanel-0 > div > div > div > div.stElementContainer.element-container.st-key-formation1 
+        .st-key-formation1 
         {
             color = "#FFFFFF"
         }
