@@ -411,5 +411,5 @@ def dream_team(upcoming_gameweek, team_names, goalie_future_fixture, defender_fu
     if total_price / 10 > 100:
         st.markdown(f"<h1 style='text-align: center; color: red; font-size: 20px;  margin: 1px 0;'>This configuration exceeds the FPL 100M limit, choose wisely</h1>", unsafe_allow_html=True)
     st.markdown(f"<h1 style='text-align: center; color: green; font-size : 30px;  margin: 1px 0;'>Total Price: {total_price / 10}M</h1>", unsafe_allow_html=True)
-    st.markdown(f"<h1 style='text-align: center; color: red; font-size : 16px;  margin: 1px 0;'>Overall Confidence of 92%</h1>", unsafe_allow_html=True)
+    st.markdown(f"<h1 style='text-align: center; color: red; font-size : 17px;  margin: 1px 0;'>Overall Confidence of 92%</h1>", unsafe_allow_html=True)
     return predicted_points, total_price  # Return the values instead of using globals
