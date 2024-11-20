@@ -9,7 +9,7 @@ st.set_page_config("FPL Dream Team", page_icon = "https://rightanglecreative.co.
 page_bg_image = """
 <style>
 [data-testid="stAppViewContainer"]{
-background-color:#0E1117;
+background: linear-gradient(225deg, #231d1d, rgba(135, 10, 41, 1), rgba(35, 19, 40, 1))
 }
 
 .st-c1 {
