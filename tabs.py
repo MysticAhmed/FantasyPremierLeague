@@ -31,16 +31,17 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
         elif positions[player['element_type']] == "Forward" and player_id in set(forward_fixtures_df['player_id']):
             all_forwards[player_id] = player_data
 
+    # Inject CSS for changing the selectbox label color
     st.markdown(
         """
         <style>
-        label[data-baseweb="select"] {
-            color: cyan !important;
+        div.stSelectbox label {
+            color: white !important;
         }
         </style>
         """,
         unsafe_allow_html=True
-        )
+    )
     # Formation input with a unique key
     formation = st.selectbox(
         "Pick a formation",
