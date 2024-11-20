@@ -21,9 +21,8 @@ st.markdown(
 """
 <style>
 /* Change background color on hover */
-div[role="option"]:hover {
-background-color: #90EE90 !important; /* Light green */
-color: black !important; /* Text color */
+.st-ep {
+    background-color: rgb(255, 255, 255);
 }
 
 /* Change the color of the selectbox label */
