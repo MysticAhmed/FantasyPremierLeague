@@ -46,16 +46,15 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
         border-radius: 5px !important; /* Optional: Smooth corners */
     }
 
+    div[data-testid="select"] .st-dk {
+        background-color: rgb(38, 39, 48) !important; /* Change this to your desired color */
+    }
+
     /* Change the background color of the dropdown options */
     ul[data-testid="stSelectboxVirtualDropdown"] {
         background-color: rgb(38, 39, 48) !important; /* Dropdown background color */
         border-radius: 5px !important; /* Optional: Smooth corners */
         border: 1px solid #ccc !important; /* Optional: Border styling */
-    }
-
-    /* Change the background color of the dropdown options */
-    div[data-testid="data-baseweb="popover""] {
-        background-color: rgb(38, 39, 48) !important; /* Dropdown background color */
     }
 
     </style>
