@@ -60,7 +60,7 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
         border: 1px solid #ccc !important; /* Optional: Border styling */
     }
 
-    #tabs-bui3-tabpanel-0 > div > div > div > div.stElementContainer.element-container.st-key-formation1.st-emotion-cache-13d682y.e1f1d6gn4 > div > div > div > div.st-ay.st-af.st-ai.st-dl.st-dm.st-ag.st-b0.st-ah.st-cd.st-d8.st-d9.st-da.st-dn
+    li#bui142val-0
     {
         background-color = rgb(38, 39, 48) !important
     }
