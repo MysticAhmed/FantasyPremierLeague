@@ -20,9 +20,9 @@ background-color:#0E1117}
 st.markdown(
 """
 <style>
-div:hover {
-    background-color: #AC3864;
-  }
+ul#selectUl:hover li.unselected {
+    background-color: #000;
+}
 
 /* Change the color of the selectbox label */
 div.stSelectbox label {
