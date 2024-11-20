@@ -62,6 +62,10 @@ if 'formation' not in st.session_state:
     #bui236__anchor {
         background-color: rgb(38, 39, 48) !important;
     }
+
+    li#bui232val-3 {
+        padding: 0;
+    }
     </style>
     """,
     unsafe_allow_html=True
