@@ -59,11 +59,6 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
         border-radius: 5px !important; /* Optional: Smooth corners */
         border: 1px solid #ccc !important; /* Optional: Border styling */
     }
-
-    li#bui142val-0
-    {
-        background-color = rgb(38, 39, 48) !important
-    }
     </style>
     """,
     unsafe_allow_html=True
