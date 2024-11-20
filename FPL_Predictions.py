@@ -20,10 +20,9 @@ background-color:#0E1117}
 st.markdown(
 """
 <style>
-/* Change background color on hover */
-.st-ep {
-    background-color: rgb(255, 255, 255);
-}
+div:hover {
+    background-color: #AC3864;
+  }
 
 /* Change the color of the selectbox label */
 div.stSelectbox label {
