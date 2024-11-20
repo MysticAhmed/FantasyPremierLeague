@@ -50,7 +50,7 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
         background-color: rgb(38, 39, 48) !important; /* Change this to your desired color */
     }
 
-    div[data-testid="stTooltipHoverTarget"] .st-dk {
+    div[data-testid="stTooltipHoverTarget"]{
         background-color: rgb(38, 39, 48) !important; /* Change this to your desired color */
     }
     /* Change the background color of the dropdown options */
