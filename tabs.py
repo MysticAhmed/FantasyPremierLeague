@@ -46,9 +46,8 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
     }
 
     /* Change the background color of dropdown options */
-    ul[data-baseweb="menu"] {
+    .st-dk {
         background-color: gray !important;
-        border-radius: 5px !important; /* Optional: Smooth corners */
     }
     </style>
         """,
