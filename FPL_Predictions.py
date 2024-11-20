@@ -241,5 +241,4 @@ with tab2:
         positions,
         team_names,
         captain_id
-
     )
