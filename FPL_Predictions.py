@@ -20,15 +20,43 @@ st.markdown(page_bg_image, unsafe_allow_html=True)
 if 'formation' not in st.session_state:
     st.session_state.formation = "5-4-1"
 
-selectbox_text = """
-<style>
-    #tabs-bui5-tabpanel-0 > div > div > div > div.stElementContainer.element-container.st-key-formation1.st-emotion-cache-13d682y.e1f1d6gn4 > div > label > div > p 
-    {
-        color = "#FFFFFF"
+# Inject CSS for changing the selectbox label color
+    st.markdown(
+    """
+    <style>
+    /* Change the color of the selectbox label */
+    div.stSelectbox label {
+        color: white !important;
     }
-</style>
-"""
-st.markdown(selectbox_text, unsafe_allow_html=True)
+
+     /* Change the background color of the selectbox container */
+    div[data-testid="stSelectbox"] .st-dk {
+        background-color: rgb(38, 39, 48) !important; /* Change this to your desired color */
+        border-radius: 5px !important; /* Optional: Smooth corners */
+    }
+
+    div > li.st-emotion-cache-doy61h.e1811lun0:first-child {
+        background-color: rgb(38, 39, 48);
+    }
+
+    div[data-testid="stTooltipHoverTarget"]{
+        background-color: rgb(38, 39, 48) !important; /* Change this to your desired color */
+    }
+    /* Change the background color of the dropdown options */
+    ul[data-testid="stSelectboxVirtualDropdown"] {
+        background-color: rgb(38, 39, 48) !important; /* Dropdown background color */
+        border-radius: 5px !important; /* Optional: Smooth corners */
+        border: 1px solid #ccc !important; /* Optional: Border styling */
+    }
+
+    #bui396val-1
+    {
+        background-color = rgb(38, 39, 48) !important
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+    )
 
 goalie_future_fixture, defender_future_fixture, midfielder_fixtures_df, forward_fixtures_df, all_players = load_data()
 # Create mappings for player_id to name and player_id to position
