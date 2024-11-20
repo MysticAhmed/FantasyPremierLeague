@@ -60,7 +60,7 @@ if 'formation' not in st.session_state:
     }
 
     .st-emotion-cache-1ppef92 {
-        background-color: rgb(38, 39, 48);
+        background: rgb(38, 39, 48);
     }
     </style>
     """,
