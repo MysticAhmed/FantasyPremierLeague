@@ -35,7 +35,9 @@ padding: 0px;
 width: 570px;
 }
 .target:hover,
-.target:focus {
+.target:focus 
+{
+  transition-property: background-color;
   background-color: rgb(38, 39, 48);
 }
 </style>""", unsafe_allow_html= True)
