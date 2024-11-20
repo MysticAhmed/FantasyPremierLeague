@@ -30,15 +30,6 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
             all_midfielders[player_id] = player_data
         elif positions[player['element_type']] == "Forward" and player_id in set(forward_fixtures_df['player_id']):
             all_forwards[player_id] = player_data
-
-    page_text = """
-    <style>
-    [data-baseweb="select"]{
-        color : "#000000"
-    }
-    </style>
-    """
-    st.markdown(page_text, unsafe_allow_html=True)
     # Formation input with a unique key
     formation = st.selectbox(
         "Pick a formation",
