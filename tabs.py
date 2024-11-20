@@ -35,15 +35,16 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
     st.markdown(
         """
         <style>
-        div.stSelectbox label {
-            color: white !important;}
+    /* Change the color of the label */
+    div.stSelectbox label {
+        color: white !important;
+    }
 
-        /* Change the text inside the select box */
-        div.stSelectbox > div[data-baseweb="select"] {
-            color: black !important;
-        }
-        
-        </style>
+    /* Change the background color of the dropdown (optional) */
+    div.stSelectbox div[data-baseweb="select"] {
+        background-color: gray !important;
+    }
+    </style>
         """,
         unsafe_allow_html=True
     )
