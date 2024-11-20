@@ -60,13 +60,10 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
         border: 1px solid #ccc !important; /* Optional: Border styling */
     }
 
-    /* Your CSS */
-    li#your-selector:hover {
-    background-color: #f0f0f0; /* Or your desired color */
+    #bui396val-1
+    {
+        background-color = rgb(38, 39, 48)
     }
-
-    
-
     </style>
     """,
     unsafe_allow_html=True
