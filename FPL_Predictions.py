@@ -24,6 +24,11 @@ if 'formation' not in st.session_state:
     st.markdown(
     """
     <style>
+    /* Change the color of the selectbox label */
+    div.stSelectbox label {
+        color: white !important;
+    }
+
     .stSelectbox {
     background-color: rgba(0, 0, 0, 0);
     border: 0px none rgb(229, 227, 223);
