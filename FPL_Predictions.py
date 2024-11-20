@@ -61,7 +61,6 @@ width: 570px;
 </style>""", unsafe_allow_html= True)
 
 st.markdown(page_bg_image, unsafe_allow_html=True)
-st.rerun()
 if 'formation' not in st.session_state:
     st.session_state.formation = "5-4-1"
 
@@ -82,7 +81,6 @@ for gameweek in gameweeks:
         break
 
 tab1, tab2, tab3 = st.tabs(["Dream Team", "Own Team Predictions", "Ask your AI Manager!"])
-
 with tab3:
     st.markdown("""
     <style>
