@@ -70,9 +70,9 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
         total = 0
         for _, player in players_df.iterrows():
             if captained_player == player['player_id']:
-                points = round(player['prediction'], 0)*2
+                points = int(round(player['prediction'], 0))*2
             else:
-                points = round(player['prediction'], 0)
+                points = int(round(player['prediction'], 0))
             total += points
         return total
 
@@ -105,7 +105,7 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
         player_position = get_player_position(player_id, player_id_to_position)
         player_value = get_player_value(player_id, player_id_to_value)
         team_name = team_names.get(team_code)
-        predicted = round(player['prediction'], 0)
+        predicted = int(round(player['prediction'], 0))
         jersey_url = find_kit(team_name)
     
 
@@ -129,7 +129,7 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
                 unsafe_allow_html=True,
             )
             if captained_player == player_id:
-                predicted = round(player['prediction'], 0)* 2
+                predicted = int(round(player['prediction'], 0))* 2
                 st.markdown("<p style='text-align: center; color: gold; font-size: 17px;'>🌟 Captain</p>", unsafe_allow_html=True,)
             st.markdown(
                 f"<p style='text-align: center; color: orange; font-size: 17px; margin: 1px 0;'>Predicted Points 🏆: {predicted}</p>",
@@ -348,7 +348,7 @@ def dream_team(upcoming_gameweek, team_names, goalie_future_fixture, defender_fu
         team_name = team_names.get(team_code)
         jersey_url = find_kit(team_name)
         player_status = player_status_map.get(player_id, 100)
-        player_prediction = round(player['prediction'], 0)
+        player_prediction = int(round(player['prediction'], 0))
         if player_status == None:
             player_status = 100
 
@@ -373,7 +373,7 @@ def dream_team(upcoming_gameweek, team_names, goalie_future_fixture, defender_fu
                 unsafe_allow_html=True,
             )
             if player_id == captain['player_id']:
-                player_prediction = round(player['prediction'], 0) * 2
+                player_prediction = int(round(player['prediction'], 0)) * 2
                 st.markdown("<p style='text-align: center; color: gold; font-size: 17px;'>🌟 Captain</p>", unsafe_allow_html=True,)
 
             if player_id == vice['player_id']:
