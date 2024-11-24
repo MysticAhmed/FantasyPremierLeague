@@ -182,13 +182,14 @@ with tab3:
 
                         response = (
                             f"With a value of <span style='color: green;'>{player_value / 10}M</span>, M.Salah plays as a {player_position} for <span style='color: red;'>{team_name}</span>. "
-                            f"<p style='color: maroon;'>Predicted points: {math.ceil(row['prediction'])} 🏆</p>"
+                            f"<p style='color: maroon;'>Predicted points: {round(row['prediction'], 
+                                                                                 0)} 🏆</p>"
                         )
 
                     elif player_name_tokens & tokens_in_prompt :  # Set intersection to find matching tokens
                         response = (
                             f"With a value of <span style='color: green;'>{player_value / 10}M</span>, {row['player_name']} plays as a {player_position} for <span style='color: red;'>{team_name}</span>. "
-                            f"<p style='color: maroon;'>Predicted points: {math.ceil(row['prediction'])} 🏆</p>"
+                            f"<p style='color: maroon;'>Predicted points: {round(row['prediction'], 0)} 🏆</p>"
                         )
                         break
             # Add assistant's response to chat history
