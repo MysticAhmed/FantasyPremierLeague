@@ -1,7 +1,7 @@
 import os
 
 def load_predictions(goalie, defender, midfielder, forward):
-    base_path = 'D:\\College\\Sophomore VT\\Comp Sci\\Azure_Function\\CSV_Files'
+    base_path = 'CSV_Files'
     files = {
         "forward_predictions.csv": forward,
         "midfielder_predictions.csv": midfielder,
