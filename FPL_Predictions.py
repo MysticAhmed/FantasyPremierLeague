@@ -58,6 +58,10 @@ font-size: 16px;
 padding: 0px;
 width: 570px;
 }
+[data-baseweb="tab"].st-bf{
+    transform: translateY(-10px); /* Initially slightly hidden below the viewport */
+    transition: transform 0.3s ease;
+}
 </style>""", unsafe_allow_html= True)
 
 st.markdown(page_bg_image, unsafe_allow_html=True)
@@ -121,88 +125,88 @@ with tab3:
     </style>
     """, unsafe_allow_html=True)
 
-    # Initialize chat history
-    if "chat_history" not in st.session_state:
-        st.session_state.chat_history = [
-            {"role": "Manager", "content": "Hi! Type a player's name or ask for a player recommendation!"}
-        ]
+if "chat_history" not in st.session_state:
+    st.session_state.chat_history = [
+        {"role": "Manager", "content": "Hi! Type a player's name or ask for a player recommendation!"}
+    ]
 
-    # Chat input box at the top
-    with st.container():
-        st.markdown('<div class="chat-input-container">', unsafe_allow_html=True)
-        prompt = st.chat_input("Start with a name...")
-        st.markdown('</div>', unsafe_allow_html=True)
+# Chat input box at the top
+with st.container():
+    st.markdown('<div class="chat-input-container">', unsafe_allow_html=True)
+    prompt = st.chat_input("Start with a name...")
+    st.markdown('</div>', unsafe_allow_html=True)
 
-        if prompt:
-            st.session_state.chat_history.append({"role": "user", "content": prompt})
-            response = "Sorry, I couldn't find information about that player."  # Default response
-            
-            if "recommend" in prompt.lower():
-                # Extract position and value using regular expressions
-                position_match = re.search(r"(goalkeeper|defender|midfielder|forward)", prompt.lower())
-                value_match = re.search(r"(\d+\.?\d*)m", prompt.lower())  # Look for a number followed by "M"
+    if prompt:
+        st.session_state.chat_history.append({"role": "user", "content": prompt})
+        response = "Sorry, I couldn't find information about that player."  # Default response
+        
+        # Check if the prompt is asking for a recommendation
+        if "recommend" in prompt.lower():
+            # Extract position and value using regular expressions
+            position_match = re.search(r"(goalkeeper|defender|midfielder|forward)", prompt.lower())
+            value_match = re.search(r"(\d+\.?\d*)m", prompt.lower())  # Look for a number followed by "M"
 
-                # Extract the position and value
-                position = position_match.group(1).capitalize() if position_match else None
-                value = float(value_match.group(1)) if value_match else None
-                if position == "Goalkeeper":
-                    dataset = goalie_future_fixture
-                elif position == "Defender":
-                    dataset = defender_future_fixture
-                elif position == "Midfielder":
-                    dataset = midfielder_fixtures_df
-                elif position == "Forward":
-                    dataset = forward_fixtures_df
-                # Run the recommendation function if both position and value are found
-                if position and value:
-                    recommendation = player_for_value(dataset, value)
-                    response = recommendation  # Set the recommendation as the response
-                else:
-                    response = "Please provide both a valid position and a value (e.g., 'recommend a defender for 5.5M')."
+            # Extract the position and value
+            position = position_match.group(1).capitalize() if position_match else None
+            value = float(value_match.group(1)) if value_match else None
+            if position == "Goalkeeper":
+                dataset = goalie_future_fixture
+            elif position == "Defender":
+                dataset = defender_future_fixture
+            elif position == "Midfielder":
+                dataset = midfielder_fixtures_df
+            elif position == "Forward":
+                dataset = forward_fixtures_df
+
+            # Run the recommendation function if both position and value are found
+            if position and value:
+                recommendation = player_for_value(dataset, value)
+                response = recommendation  # Set the recommendation as the response
             else:
-                # Extract tokens (words) from the prompt
-                tokens_in_prompt = set(re.findall(r'\w+', prompt.lower()))  # Tokenizes the prompt into lowercase words
-                # Match player name from the prompt
-                for _, row in all_players.iterrows():
-                    player_id = row['player_id']
+                response = "Please provide both a valid position and a value (e.g., 'recommend a defender for 5.5M')."
+
+        # Default behavior: Check for player information
+        else:
+            tokens_in_prompt = set(re.findall(r'\w+', prompt.lower()))  # Tokenizes the prompt into lowercase words
+            for _, row in all_players.iterrows():
+                player_id = row['player_id']
+                team_code = get_team_code(player_id, player_id_to_team_code)
+                player_name = get_player_name(player_id, player_id_to_name)
+                player_position = get_player_position(player_id, player_id_to_position)
+                player_value = get_player_value(player_id, player_id_to_value)
+                team_name = team_names.get(team_code)
+                player_name_tokens = set(re.findall(r'\w+', row['player_name'].lower()))  # Tokenize the player's name
+
+                # Special edge case handling for "M.Salah"
+                if "m.salah" in prompt.lower():
+                    player_id = get_player_id("M.Salah", player_name_to_id)
                     team_code = get_team_code(player_id, player_id_to_team_code)
-                    player_name = get_player_name(player_id, player_id_to_name)
                     player_position = get_player_position(player_id, player_id_to_position)
                     player_value = get_player_value(player_id, player_id_to_value)
                     team_name = team_names.get(team_code)
-                    player_name_tokens = set(re.findall(r'\w+', row['player_name'].lower()))  # Tokenize the player's name
-                    # Check if any token in the player's name matches a token in the prompt
-                    # Special edge case handling
-                    if "m.salah" in prompt.lower():
-                        player_id  = get_player_id("M.Salah", player_name_to_id)
-                        team_code = get_team_code(player_id, player_id_to_team_code)
-                        player_position = get_player_position(player_id, player_id_to_position)
-                        player_value = get_player_value(player_id, player_id_to_value)
-                        team_name = team_names.get(team_code)
+                    response = (
+                        f"With a value of <span style='color: green;'>{player_value / 10}M</span>, M.Salah plays as a {player_position} for <span style='color: red;'>{team_name}</span>. "
+                        f"<p style='color: maroon;'>Predicted points: {math.ceil(row['prediction'])} 🏆</p>"
+                    )
 
-                        response = (
-                            f"With a value of <span style='color: green;'>{player_value / 10}M</span>, M.Salah plays as a {player_position} for <span style='color: red;'>{team_name}</span>. "
-                            f"<p style='color: maroon;'>Predicted points: {math.ceil(row['prediction'])} 🏆</p>"
-                        )
+                elif player_name_tokens & tokens_in_prompt:  # Set intersection to find matching tokens
+                    response = (
+                        f"With a value of <span style='color: green;'>{player_value / 10}M</span>, {row['player_name']} plays as a {player_position} for <span style='color: red;'>{team_name}</span>. "
+                        f"<p style='color: maroon;'>Predicted points: {math.ceil(row['prediction'])} 🏆</p>"
+                    )
+                    break
 
-                    elif player_name_tokens & tokens_in_prompt :  # Set intersection to find matching tokens
-                        response = (
-                            f"With a value of <span style='color: green;'>{player_value / 10}M</span>, {row['player_name']} plays as a {player_position} for <span style='color: red;'>{team_name}</span>. "
-                            f"<p style='color: maroon;'>Predicted points: {math.ceil(row['prediction'])} 🏆</p>"
-                        )
-                        break
-            # Add assistant's response to chat history
-            st.session_state.chat_history.append({"role": "Manager", "content": response})
+        # Add assistant's response to chat history
+        st.session_state.chat_history.append({"role": "Manager", "content": response})
+# Chat history display below input box
+st.markdown('<div class="chat-container">', unsafe_allow_html=True)
+for message in reversed(st.session_state.chat_history):  # Reverse the display order of messages
+    if message["role"] == "user":
+        st.markdown(f"<div class='chat-bubble user-bubble'><b>User:</b> {message['content']}</div>", unsafe_allow_html=True)
+    else:
+        st.markdown(f"<div class='chat-bubble assistant-bubble'><b>AI Manager:</b> {message['content']}</div>", unsafe_allow_html=True)
+st.markdown('</div>', unsafe_allow_html=True)
 
-
-    # Chat history display below input box
-    st.markdown('<div class="chat-container">', unsafe_allow_html=True)
-    for message in reversed(st.session_state.chat_history):  # Reverse the display order of messages
-        if message["role"] == "user":
-            st.markdown(f"<div class='chat-bubble user-bubble'><b>User:</b> {message['content']}</div>", unsafe_allow_html=True)
-        else:
-            st.markdown(f"<div class='chat-bubble assistant-bubble'><b>AI Manager:</b> {message['content']}</div>", unsafe_allow_html=True)
-    st.markdown('</div>', unsafe_allow_html=True)
 with tab1:
     predicted_points, total_price = dream_team(
     upcoming_gameweek, 
