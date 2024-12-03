@@ -75,10 +75,10 @@ def main(mytimer: func.TimerRequest) -> None:
                     f'\n{len(defender_predictions)} defenders'
                     f'\n{len(midfielder_predictions)} midfielders'
                     f'\n{len(forward_predictions)} forwards')
-        os.remove(r"D:\College\Sophomore VT\Comp Sci\Azure_Function\CSV_Files\defender_predictions.csv")
-        os.remove(r"D:\College\Sophomore VT\Comp Sci\Azure_Function\CSV_Files\forward_predictions.csv")
-        os.remove(r"D:\College\Sophomore VT\Comp Sci\Azure_Function\CSV_Files\goalie_predictions.csv")
-        os.remove(r"D:\College\Sophomore VT\Comp Sci\Azure_Function\CSV_Files\midfielder_predictions.csv")
+        os.remove(r"CSV_Files/defender_predictions.csv")
+        os.remove(r"CSV_Files/forward_predictions.csv")
+        os.remove(r"CSV_Files/goalie_predictions.csv")
+        os.remove(r"CSV_Files/midfielder_predictions.csv")
         
         # Save predictions
         load_predictions.load_predictions(goalie_predictions, defender_predictions, 
