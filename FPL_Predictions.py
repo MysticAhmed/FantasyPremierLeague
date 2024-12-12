@@ -203,7 +203,7 @@ with tab3:
                         closest_player_prediction = row['prediction']
                         break
                 
-                THRESHOLD = 0.5
+                THRESHOLD = 0.45
 
                 if closest_match >= THRESHOLD:
                     player_name = get_player_name(closest_player_id, player_id_to_name)
