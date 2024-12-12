@@ -4,6 +4,7 @@ from utils import *
 from Kits import *
 import requests
 import re
+from difflib import SequenceMatcher
 st.set_page_config("FPL Dream Team", page_icon = "https://rightanglecreative.co.uk/wp-content/uploads/2020/04/Blog-Post-260816-Premier-League-Logo-Thumbnail.jpg", layout = "wide", initial_sidebar_state= "auto", menu_items=  None)
 # Initialize session state
 page_bg_image = """
@@ -79,6 +80,22 @@ for gameweek in gameweeks:
     if gameweek['finished'] == False:
         upcoming_gameweek = str(gameweek['name'])
         break
+
+def similiar(a, b):
+    # Convert sets to strings (as before)
+    a_str = ' '.join(a) if isinstance(a, set) else a
+    b_str = ' '.join(b) if isinstance(b, set) else b
+
+    # Base similarity ratio
+    base_similarity = SequenceMatcher(None, a_str, b_str).ratio()
+
+    # Boost similarity if there are exact token matches
+    token_overlap = len(a.intersection(b))  # Number of common tokens
+    token_similarity = token_overlap / max(len(a), len(b))  # Normalize overlap
+
+    # Weighted similarity: prioritize token matches
+    return base_similarity * 0.7 + token_similarity * 0.3
+
 
 tab1, tab2, tab3 = st.tabs(["Dream Team", "Own Team Predictions", "Ask your AI Manager!"])
 with tab3:
@@ -163,34 +180,41 @@ with tab3:
                 # Extract tokens (words) from the prompt
                 tokens_in_prompt = set(re.findall(r'\w+', prompt.lower()))  # Tokenizes the prompt into lowercase words
                 # Match player name from the prompt
+                closest_match = 0
+                closest_player_id = 0
+                closest_player_team = ""
+                closest_player_prediction = 0
                 for _, row in all_players.iterrows():
                     player_id = row['player_id']
                     team_code = get_team_code(player_id, player_id_to_team_code)
-                    player_name = get_player_name(player_id, player_id_to_name)
-                    player_position = get_player_position(player_id, player_id_to_position)
-                    player_value = get_player_value(player_id, player_id_to_value)
                     team_name = team_names.get(team_code)
                     player_name_tokens = set(re.findall(r'\w+', row['player_name'].lower()))  # Tokenize the player's name
                     # Check if any token in the player's name matches a token in the prompt
                     # Special edge case handling
-                    if "m.salah" in prompt.lower():
-                        player_id  = get_player_id("M.Salah", player_name_to_id)
-                        team_code = get_team_code(player_id, player_id_to_team_code)
-                        player_position = get_player_position(player_id, player_id_to_position)
-                        player_value = get_player_value(player_id, player_id_to_value)
-                        team_name = team_names.get(team_code)
-
-                        response = (
-                            f"With a value of <span style='color: green;'>{player_value / 10}M</span>, M.Salah plays as a {player_position} for <span style='color: red;'>{team_name}</span>. "
-                            f"<p style='color: maroon;'>Predicted points: {int(round(row['prediction'], 0))} 🏆</p>"
-                        )
-
-                    elif player_name_tokens & tokens_in_prompt :  # Set intersection to find matching tokens
-                        response = (
-                            f"With a value of <span style='color: green;'>{player_value / 10}M</span>, {row['player_name']} plays as a {player_position} for <span style='color: red;'>{team_name}</span>. "
-                            f"<p style='color: maroon;'>Predicted points: {int(round(row['prediction'], 0))} 🏆</p>"
-                        )
+                    if  closest_match < similiar(player_name_tokens, tokens_in_prompt):
+                        closest_match = similiar(player_name_tokens, tokens_in_prompt)
+                        closest_player_id = player_id
+                        closest_player_team = team_name
+                        closest_player_prediction = row['prediction']
+                    elif similiar(player_name_tokens, tokens_in_prompt) == 1:
+                        closest_match = similiar(player_name_tokens, tokens_in_prompt)
+                        closest_player_id = player_id
+                        closest_player_team = team_name
+                        closest_player_prediction = row['prediction']
                         break
+                
+                THRESHOLD = 0.5
+
+                if closest_match >= THRESHOLD:
+                    player_name = get_player_name(closest_player_id, player_id_to_name)
+                    player_position = get_player_position(closest_player_id, player_id_to_position)
+                    player_value = get_player_value(closest_player_id, player_id_to_value)
+                    response = (
+                        f"With a value of <span style='color: green;'>{player_value / 10}M</span>, {player_name} plays as a {player_position} for <span style='color: red;'>{closest_player_team}</span>. "
+                        f"<p style='color: maroon;'>Predicted points: {int(round(closest_player_prediction , 0))} 🏆</p>"
+                    )
+                else:
+                   response = "Sorry, I couldn't find information about that player. Enter a valid player name"  # Default response  
             # Add assistant's response to chat history
             st.session_state.chat_history.append({"role": "Manager", "content": response})
 
