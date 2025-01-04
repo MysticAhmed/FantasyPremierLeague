@@ -9,7 +9,7 @@ def performance_averages(goalie_df, defender_df, midfielder_df, forward_df, matc
         return (series * weights).sum()
 
     # Apply decay-weighted averages for each column
-    decay_factor = 0.7  # Tune this value for your decay
+    decay_factor = 0.8  # Tune this value for your decay
     goalie_df['penalties_saved_last_5'] = (goalie_df.groupby('player_id')['penalties_saved'].apply(lambda x: x.rolling(window=5, min_periods=1).apply(lambda y: decay_weighted_avg(y, decay_factor=decay_factor), raw=False))).reset_index(level=0, drop=True)
 
     goalie_df['saves_last_5'] = (goalie_df.groupby('player_id')['saves'].apply(lambda x: x.rolling(window=5, min_periods=1).apply(lambda y: decay_weighted_avg(y, decay_factor=decay_factor), raw=False))).reset_index(level=0, drop=True)
