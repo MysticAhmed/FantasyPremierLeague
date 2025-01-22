@@ -41,8 +41,7 @@ def performance_averages(goalie_df, defender_df, midfielder_df, forward_df, matc
         match_df,
         all_positions_df[['player_id', 'kickoff_time', 'penalties_saved_last_5', 'saves_last_5', 'clean_sheets_last_5', 'goals_scored_last_5', 'assists_last_5', 'minutes_last_5', 'threat_last_5', 'bps_last_5', 'own_goals_last_5']],  # Select relevant columns
         on=['player_id', 'kickoff_time'],
-        how='left'  # Use a left merge to keep all rows in match_df
-    )
+        how='left') # Use a left merge to keep all rows in match_df
     # Ensure numeric data types for relevant columns in match_df
     numeric_columns = ['goals_scored', 'assists', 'minutes', 'yellow_cards', 'threat', 'penalties_saved', 'saves', 'clean_sheets', 'own_goals', 'bps', 'form']
     match_df[numeric_columns] = match_df[numeric_columns].apply(pd.to_numeric, errors='coerce')
