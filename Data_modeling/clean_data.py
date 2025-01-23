@@ -6,7 +6,7 @@ def clean_data(future_fixtures_df, match_df):
     future_fixtures_df = future_fixtures_df.drop(columns=['id'])
 
     valid_player_ids = match_df['player_id'].unique()
-    match_df['match_difficulty'] = match_df['match_difficulty'].fillna(3)
+    match_df['match_difficulty'] = match_df['match_difficulty'].fillna(4)
 # Filter future_fixtures_df to only include rows with player IDs present in match_df
     future_fixtures_df = future_fixtures_df[future_fixtures_df['player_id'].isin(valid_player_ids)]
     
