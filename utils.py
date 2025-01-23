@@ -4,7 +4,7 @@ import streamlit as st
 import os
 response = requests.get("https://fantasy.premierleague.com/api/bootstrap-static/")
 data = response.json()
-positions = {1: "Goalkeeper", 2: "Defender", 3: "Midfielder", 4: "Forward"}
+positions = {1: "Goalkeeper", 2: "Defender", 3: "Midfielder", 4: "Forward", 5: "Unknown Position"}
 player_id_to_name = {player['id']: player['web_name'] for player in data['elements']}
 player_name_to_id = {player['web_name']: player['id'] for player in data['elements']}
 player_id_to_value = {player['id']: player['now_cost'] for player in data['elements']}
