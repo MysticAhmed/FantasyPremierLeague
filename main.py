@@ -50,20 +50,27 @@ def main(mytimer: func.TimerRequest) -> None:
             'goalie': os.path.join(models_path, 'goalie_model.pkl')
         }
 
+        model_paths2 = {
+            'forward': os.path.join(models_path, 'forward_model_NN.pkl'),
+            'midfielder': os.path.join(models_path, 'midfielder_model_NN.pkl'),
+            'defender': os.path.join(models_path, 'defender_model_NN.pkl'),
+            'goalie': os.path.join(models_path, 'goalie_model_NN.pkl')
+        }
+
         try:
-            with open(model_paths['forward'], 'rb') as f:
+            with open(model_paths2['forward'], 'rb') as f:
                 forward_model = pickle.load(f)
-            with open(model_paths['defender'], 'rb') as f:
+            with open(model_paths2['defender'], 'rb') as f:
                 defender_model = pickle.load(f)
-            with open(model_paths['midfielder'], 'rb') as f:
+            with open(model_paths2['midfielder'], 'rb') as f:
                 midfielder_model = pickle.load(f)
-            with open(model_paths['goalie'], 'rb') as f:
+            with open(model_paths2['goalie'], 'rb') as f:
                 goalie_model = pickle.load(f)
         except Exception as e:
             logging.error(f'Error loading models: {str(e)}')
             raise
 
-        #Runs model on data for point prediction
+        #Runs model on data for point prediction (currently using NN)
         goalie_predictions = make_predictions.make_predictions(goalie_data, goalie_model)
         defender_predictions = make_predictions.make_predictions(defender_data, defender_model)
         midfielder_predictions = make_predictions.make_predictions(midfielder_data, midfielder_model)
