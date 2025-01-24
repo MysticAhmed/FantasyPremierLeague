@@ -58,14 +58,28 @@ def main(mytimer: func.TimerRequest) -> None:
         }
 
         try:
-            with open(model_paths2['forward'], 'rb') as f:
+            with open(model_paths['forward'], 'rb') as f:
                 forward_model = pickle.load(f)
-            with open(model_paths2['defender'], 'rb') as f:
+            with open(model_paths['defender'], 'rb') as f:
                 defender_model = pickle.load(f)
-            with open(model_paths2['midfielder'], 'rb') as f:
+            with open(model_paths['midfielder'], 'rb') as f:
                 midfielder_model = pickle.load(f)
-            with open(model_paths2['goalie'], 'rb') as f:
+            with open(model_paths['goalie'], 'rb') as f:
                 goalie_model = pickle.load(f)
+        except Exception as e:
+            logging.error(f'Error loading models: {str(e)}')
+            raise
+
+        #NN model
+        try:
+            with open(model_paths2['forward'], 'rb') as f:
+                forward_model_NN = pickle.load(f)
+            with open(model_paths2['defender'], 'rb') as f:
+                defender_model_NN = pickle.load(f)
+            with open(model_paths2['midfielder'], 'rb') as f:
+                midfielder_model_NN = pickle.load(f)
+            with open(model_paths2['goalie'], 'rb') as f:
+                goalie_model_NN = pickle.load(f)
         except Exception as e:
             logging.error(f'Error loading models: {str(e)}')
             raise
@@ -76,7 +90,12 @@ def main(mytimer: func.TimerRequest) -> None:
         midfielder_predictions = make_predictions.make_predictions(midfielder_data, midfielder_model)
         forward_predictions = make_predictions.make_predictions(forward_data, forward_model)
 
-        # Log predictions
+        goalie_predictions_NN = make_predictions.make_predictions(goalie_data, goalie_model_NN)
+        defender_predictions_NN = make_predictions.make_predictions(defender_data, defender_model_NN)
+        midfielder_predictions_NN = make_predictions.make_predictions(midfielder_data, midfielder_model_NN)
+        forward_predictions_NN = make_predictions.make_predictions(forward_data, forward_model_NN)
+
+        '''# Log predictions
         logging.info(f'Generated predictions for:'
                     f'\n{len(goalie_predictions)} goalkeepers'
                     f'\n{len(defender_predictions)} defenders'
@@ -85,11 +104,27 @@ def main(mytimer: func.TimerRequest) -> None:
         os.remove(r"CSV_Files/defender_predictions.csv")
         os.remove(r"CSV_Files/forward_predictions.csv")
         os.remove(r"CSV_Files/goalie_predictions.csv")
+        os.remove(r"CSV_Files/midfielder_predictions.csv")'''
+        
+        # Save predictions
+        load_predictions.load_predictions(goalie_predictions_NN, defender_predictions_NN, 
+                        midfielder_predictions_NN, forward_predictions_NN)
+        logging.info('Predictions saved successfully')
+
+        # Log predictions
+        logging.info(f'Generated predictions for:'
+                    f'\n{len(goalie_predictions_NN)} goalkeepers'
+                    f'\n{len(defender_predictions_NN)} defenders'
+                    f'\n{len(midfielder_predictions_NN)} midfielders'
+                    f'\n{len(forward_predictions_NN)} forwards')
+        os.remove(r"CSV_Files/defender_predictions.csv")
+        os.remove(r"CSV_Files/forward_predictions.csv")
+        os.remove(r"CSV_Files/goalie_predictions.csv")
         os.remove(r"CSV_Files/midfielder_predictions.csv")
         
         # Save predictions
-        load_predictions.load_predictions(goalie_predictions, defender_predictions, 
-                        midfielder_predictions, forward_predictions)
+        load_predictions.load_predictions(goalie_predictions_NN, defender_predictions_NN, 
+                        midfielder_predictions_NN, forward_predictions_NN)
         logging.info('Predictions saved successfully')
 
     except Exception as e:
