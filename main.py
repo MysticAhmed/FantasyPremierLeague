@@ -107,16 +107,16 @@ def main(mytimer: func.TimerRequest) -> None:
         os.remove(r"CSV_Files/midfielder_predictions.csv")'''
         
         # Save predictions
-        load_predictions.load_predictions(goalie_predictions_NN, defender_predictions_NN, 
-                        midfielder_predictions_NN, forward_predictions_NN)
+        load_predictions.load_predictions(goalie_predictions, defender_predictions, 
+                        midfielder_predictions, forward_predictions)
         logging.info('Predictions saved successfully')
 
         # Log predictions
         logging.info(f'Generated predictions for:'
-                    f'\n{len(goalie_predictions_NN)} goalkeepers'
-                    f'\n{len(defender_predictions_NN)} defenders'
-                    f'\n{len(midfielder_predictions_NN)} midfielders'
-                    f'\n{len(forward_predictions_NN)} forwards')
+                    f'\n{len(goalie_predictions)} goalkeepers'
+                    f'\n{len(defender_predictions)} defenders'
+                    f'\n{len(midfielder_predictions)} midfielders'
+                    f'\n{len(forward_predictions)} forwards')
         os.remove(r"CSV_Files/defender_predictions.csv")
         os.remove(r"CSV_Files/forward_predictions.csv")
         os.remove(r"CSV_Files/goalie_predictions.csv")
