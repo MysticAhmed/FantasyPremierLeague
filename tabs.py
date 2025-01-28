@@ -138,12 +138,12 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
             )
             if match_difficulty > 3:
                 st.markdown(
-                    f"<p style='text-align: center; color: red; font-size: 17px; margin: 1px 0;'> Match Difficulty 😓 : {match_difficulty}</p>",
+                    f"<p style='text-align: center; color: red; font-size: 17px; margin: 1px 0;'> Next Match Difficulty 😓 : {match_difficulty}</p>",
                     unsafe_allow_html=True,
                 )
             else:
                 st.markdown(
-                    f"<p style='text-align: center; color: orange; font-size: 17px; margin: 1px 0;'> Match Difficulty 😃: {match_difficulty}</p>",
+                    f"<p style='text-align: center; color: orange; font-size: 17px; margin: 1px 0;'> Next Match Difficulty 😃: {match_difficulty}</p>",
                     unsafe_allow_html=True,
                 )
 
@@ -402,12 +402,12 @@ def dream_team(upcoming_gameweek, team_names, goalie_future_fixture, defender_fu
             )
             if match_difficulty > 3:
                 st.markdown(
-                    f"<p style='text-align: center; color: red; font-size: 17px; margin: 1px 0;'> Match Difficulty 😓 : {match_difficulty}</p>",
+                    f"<p style='text-align: center; color: red; font-size: 17px; margin: 1px 0;'> Next Match Difficulty 😓 : {match_difficulty}</p>",
                     unsafe_allow_html=True,
                 )
             else:
                 st.markdown(
-                    f"<p style='text-align: center; color: orange; font-size: 17px; margin: 1px 0;'> Match Difficulty 😃: {match_difficulty}</p>",
+                    f"<p style='text-align: center; color: orange; font-size: 17px; margin: 1px 0;'> Next Match Difficulty 😃: {match_difficulty}</p>",
                     unsafe_allow_html=True,
                 )
         
