@@ -16,7 +16,7 @@ def prepare_data_for_prediction(future_fixtures_df, match_df):
             kickoff_time = pd.to_datetime(fixture['kickoff_time'], utc=True)
             match_difficulty = fixture['match_difficulty']  # Use specific match difficulty
 
-            # Sort by kickoff_time to get last 3 matches before this fixture
+            # Sort by kickoff_time to get last match before this fixture
             player_matches = match_df[match_df['player_id'] == player_id].sort_values(by=['kickoff_time'], ascending=False)
             player_matches['kickoff_time'] = pd.to_datetime(player_matches['kickoff_time'], utc=True)
 
