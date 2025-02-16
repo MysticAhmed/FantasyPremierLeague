@@ -141,13 +141,13 @@ with tab3:
     # Initialize chat history
     if "chat_history" not in st.session_state:
         st.session_state.chat_history = [
-            {"role": "Manager", "content": "Hi! Type a player's name or ask for a player recommendation! (e.g., 'recommend a defender for 5.5M')"},
+            {"role": "Manager", "content": "Hi! Type a player's name OR ask for a player recommendation! (e.g. 'recommend a defender for 5.5M')"},
         ]
 
     # Chat input box at the top
     with st.container():
         st.markdown('<div class="chat-input-container">', unsafe_allow_html=True)
-        prompt = st.chat_input("Start with a name...")
+        prompt = st.chat_input("Start with a name or as for a recommendation...")
         st.markdown('</div>', unsafe_allow_html=True)
 
         if prompt:
