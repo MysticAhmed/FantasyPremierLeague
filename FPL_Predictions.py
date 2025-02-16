@@ -225,7 +225,7 @@ with tab3:
         if message["role"] == "user":
             st.markdown(f"<div class='chat-bubble user-bubble'><b>User:</b> {message['content']}</div>", unsafe_allow_html=True)
         else:
-            st.markdown(f"<div class='chat-bubble assistant-bubble' style='color: blue><b> AI Manager:</b> {message['content']}</div>", unsafe_allow_html=True)
+            st.markdown(f"<div class='chat-bubble assistant-bubble' style='color: blue;><b> AI Manager:</b> {message['content']}</div>", unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
 with tab1:
     predicted_points, total_price = dream_team(
