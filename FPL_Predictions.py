@@ -141,7 +141,7 @@ with tab3:
     # Initialize chat history
     if "chat_history" not in st.session_state:
         st.session_state.chat_history = [
-            {"role": "Manager", "content": "Hi! Type a player's name or ask for a player recommendation!"}
+            {"role": "Manager", "content": "Hi! Type a player's name or ask for a player recommendation! (e.g., 'recommend a defender for 5.5M')"},
         ]
 
     # Chat input box at the top
