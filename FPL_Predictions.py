@@ -147,7 +147,7 @@ with tab3:
     # Chat input box at the top
     with st.container():
         st.markdown('<div class="chat-input-container">', unsafe_allow_html=True)
-        prompt = st.chat_input("Start with a name or as for a recommendation...")
+        prompt = st.chat_input("Start with a name or ask for a recommendation...")
         st.markdown('</div>', unsafe_allow_html=True)
 
         if prompt:
