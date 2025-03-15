@@ -105,6 +105,7 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
         player_position = get_player_position(player_id, player_id_to_position)
         player_value = get_player_value(player_id, player_id_to_value)
         team_name = team_names.get(team_code)
+        match_difficulty = player['match_difficulty']
         predicted = int(round(player['prediction'], 0))
         jersey_url = find_kit(team_name)
     
@@ -135,6 +136,16 @@ def own_team_predictions(goalie_future_fixture, defender_future_fixture, midfiel
                 f"<p style='text-align: center; color: orange; font-size: 17px; margin: 1px 0;'>Predicted Points 🏆: {predicted}</p>",
                 unsafe_allow_html=True,
             )
+            if match_difficulty > 3:
+                st.markdown(
+                    f"<p style='text-align: center; color: red; font-size: 17px; margin: 1px 0;'> Next Match Difficulty 😓 : {match_difficulty}</p>",
+                    unsafe_allow_html=True,
+                )
+            else:
+                st.markdown(
+                    f"<p style='text-align: center; color: orange; font-size: 17px; margin: 1px 0;'> Next Match Difficulty 😃: {match_difficulty}</p>",
+                    unsafe_allow_html=True,
+                )
 
             predicted_total += predicted
             st.divider()
@@ -347,6 +358,7 @@ def dream_team(upcoming_gameweek, team_names, goalie_future_fixture, defender_fu
         player_value = get_player_value(player_id, player_id_to_value)
         team_name = team_names.get(team_code)
         jersey_url = find_kit(team_name)
+        match_difficulty = player['match_difficulty']
         player_status = player_status_map.get(player_id, 100)
         player_prediction = int(round(player['prediction'], 0))
         if player_status == None:
@@ -388,6 +400,16 @@ def dream_team(upcoming_gameweek, team_names, goalie_future_fixture, defender_fu
                 f"<p style='text-align: center; color: red; font-size: 17px; margin: 1px 0;'> ⚠️ Injured: {player_status}% chance of playing</p>",
                 unsafe_allow_html=True,
             )
+            if match_difficulty > 3:
+                st.markdown(
+                    f"<p style='text-align: center; color: red; font-size: 17px; margin: 1px 0;'> Next Match Difficulty 😓 : {match_difficulty}</p>",
+                    unsafe_allow_html=True,
+                )
+            else:
+                st.markdown(
+                    f"<p style='text-align: center; color: orange; font-size: 17px; margin: 1px 0;'> Next Match Difficulty 😃: {match_difficulty}</p>",
+                    unsafe_allow_html=True,
+                )
         
             st.divider()
         

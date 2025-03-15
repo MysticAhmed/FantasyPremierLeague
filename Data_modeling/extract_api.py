@@ -11,11 +11,13 @@ def get_player_data():
     url = "https://fantasy.premierleague.com/api/bootstrap-static/"
     response = requests.get(url)
     data = response.json()
+
+    # Extract player data with element_type (position) and IDs
     players = pd.DataFrame(data['elements'])
     position_map = {1: 'goalkeeper', 2: 'defender', 3: 'midfielder', 4: 'forward'}
     players['position'] = players['element_type'].map(position_map)
     players['full_name'] = players['first_name'] + ' ' + players['second_name']
-    player_ids = players[['id', 'first_name', 'second_name', 'full_name', 'position', 'team_code', 'form']]
+    player_ids = players[['id', 'first_name', 'second_name', 'full_name', 'position', 'team_code', 'form', 'points_per_game']]
     return player_ids, data['teams']
 
 # Step 2: Get Team Data
@@ -26,10 +28,9 @@ def get_team_data(teams):
 
 # Step 3: Fetch player data from element-summary endpoint
 def get_player_data_from_summary(player_id):
-    player_ids, teams = get_player_data()
+    player_ids, team = get_player_data()
     player_url = f"https://fantasy.premierleague.com/api/element-summary/{player_id}/"
     response = requests.get(player_url)
-    time.sleep(0.3)
     player_data = response.json()
 
     future_fixtures = [
@@ -56,13 +57,13 @@ def get_player_data_from_summary(player_id):
             'kickoff_time': match['kickoff_time'],
             'total_points': match['total_points'],
             'yellow_cards': match['yellow_cards'],
-            'threat': match['threat'],
             'penalties_saved': match['penalties_saved'],
             'saves': match['saves'],
             'bps': match['bps'],
             'own_goals': match['own_goals'],
             'clean_sheets': match['clean_sheets'],
-            'opponent_team': match['opponent_team']
+            'opponent_team': match['opponent_team'],
+            'ict_index': match['ict_index']
         }
         for match in player_data['history']
     ]
@@ -88,7 +89,7 @@ def create_dataframes(all_fixtures_data, all_players_data, player_ids):
     future_fixtures_df = pd.DataFrame(all_fixtures_data)
     match_df = pd.DataFrame(all_players_data)
     future_fixtures_df = future_fixtures_df.merge(player_ids[['id', 'full_name', 'position']], left_on='player_id', right_on='id', how='left')
-    match_df = match_df.merge(player_ids[['id', 'full_name', 'position', 'form']], left_on='player_id', right_on='id', how='left')
+    match_df = match_df.merge(player_ids[['id', 'full_name', 'position', 'form', 'points_per_game']], left_on='player_id', right_on='id', how='left')
     return future_fixtures_df, match_df
 
 # Step 6: Create difficulty mapping from future fixtures

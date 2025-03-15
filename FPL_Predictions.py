@@ -141,13 +141,13 @@ with tab3:
     # Initialize chat history
     if "chat_history" not in st.session_state:
         st.session_state.chat_history = [
-            {"role": "Manager", "content": "Hi! Type a player's name or ask for a player recommendation!"}
+            {"role": "Manager", "content": "Hi! Type a player's name OR ask for a player recommendation! (e.g. 'recommend a defender for 5.5M')"},
         ]
 
     # Chat input box at the top
     with st.container():
         st.markdown('<div class="chat-input-container">', unsafe_allow_html=True)
-        prompt = st.chat_input("Start with a name...")
+        prompt = st.chat_input("Start with a name or ask for a recommendation...")
         st.markdown('</div>', unsafe_allow_html=True)
 
         if prompt:
@@ -225,7 +225,7 @@ with tab3:
         if message["role"] == "user":
             st.markdown(f"<div class='chat-bubble user-bubble'><b>User:</b> {message['content']}</div>", unsafe_allow_html=True)
         else:
-            st.markdown(f"<div class='chat-bubble assistant-bubble'><b>AI Manager:</b> {message['content']}</div>", unsafe_allow_html=True)
+            st.markdown(f"<div class='chat-bubble assistant-bubble' style='color: black;'><b> AI Manager:</b> {message['content']}</div>", unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
 with tab1:
     predicted_points, total_price = dream_team(

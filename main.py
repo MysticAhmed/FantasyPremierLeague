@@ -34,7 +34,8 @@ def main(mytimer: func.TimerRequest) -> None:
         match_df = map_difficulties(match_df, difficulty_df)
 
         #Cleans dataframe for training
-        future_fixtures_df, match_df  = clean_data.clean_data(future_fixtures_df, match_df)
+        future_fixtures_df, match_df, goalie_df, defender_df, midfielder_df, forward_df  = clean_data.clean_data(future_fixtures_df, match_df)
+        match_df = performance_averages.performance_averages(goalie_df, defender_df, midfielder_df, forward_df, match_df)
 
         #Prepares data for model prediction
         goalie_data, defender_data, midfielder_data, forward_data = prepare_data_for_prediction.prepare_data_for_prediction(future_fixtures_df, match_df)
@@ -85,33 +86,18 @@ def main(mytimer: func.TimerRequest) -> None:
             raise
 
         #Runs model on data for point prediction (currently using NN)
-        goalie_predictions = make_predictions.make_predictions(goalie_data, goalie_model)
-        defender_predictions = make_predictions.make_predictions(defender_data, defender_model)
-        midfielder_predictions = make_predictions.make_predictions(midfielder_data, midfielder_model)
-        forward_predictions = make_predictions.make_predictions(forward_data, forward_model)
+        goalie_predictions = make_predictions.make_predictions(goalie_data, goalie_model, 'goalkeeper')
+        defender_predictions = make_predictions.make_predictions(defender_data, defender_model, 'defender')
+        midfielder_predictions = make_predictions.make_predictions(midfielder_data, midfielder_model, 'midfielder')
+        forward_predictions = make_predictions.make_predictions(forward_data, forward_model, 'forward')
 
-        goalie_predictions_NN = make_predictions.make_predictions(goalie_data, goalie_model_NN)
-        defender_predictions_NN = make_predictions.make_predictions(defender_data, defender_model_NN)
-        midfielder_predictions_NN = make_predictions.make_predictions(midfielder_data, midfielder_model_NN)
-        forward_predictions_NN = make_predictions.make_predictions(forward_data, forward_model_NN)
+        '''
+        goalie_predictions_NN = make_predictions.make_predictions(goalie_data, goalie_model_NN, 'goalkeeper')
+        defender_predictions_NN = make_predictions.make_predictions(defender_data, defender_model_NN, 'defender')
+        midfielder_predictions_NN = make_predictions.make_predictions(midfielder_data, midfielder_model_NN, 'midfielder')
+        forward_predictions_NN = make_predictions.make_predictions(forward_data, forward_model_NN, 'forward')'''
 
         '''# Log predictions
-        logging.info(f'Generated predictions for:'
-                    f'\n{len(goalie_predictions)} goalkeepers'
-                    f'\n{len(defender_predictions)} defenders'
-                    f'\n{len(midfielder_predictions)} midfielders'
-                    f'\n{len(forward_predictions)} forwards')
-        os.remove(r"CSV_Files/defender_predictions.csv")
-        os.remove(r"CSV_Files/forward_predictions.csv")
-        os.remove(r"CSV_Files/goalie_predictions.csv")
-        os.remove(r"CSV_Files/midfielder_predictions.csv")'''
-        
-        # Save predictions
-        load_predictions.load_predictions(goalie_predictions_NN, defender_predictions_NN, 
-                        midfielder_predictions_NN, forward_predictions_NN)
-        logging.info('Predictions saved successfully')
-
-        # Log predictions
         logging.info(f'Generated predictions for:'
                     f'\n{len(goalie_predictions_NN)} goalkeepers'
                     f'\n{len(defender_predictions_NN)} defenders'
@@ -125,6 +111,22 @@ def main(mytimer: func.TimerRequest) -> None:
         # Save predictions
         load_predictions.load_predictions(goalie_predictions_NN, defender_predictions_NN, 
                         midfielder_predictions_NN, forward_predictions_NN)
+        logging.info('Predictions saved successfully')'''
+
+        # Log predictions
+        logging.info(f'Generated predictions for:'
+                    f'\n{len(goalie_predictions)} goalkeepers'
+                    f'\n{len(defender_predictions)} defenders'
+                    f'\n{len(midfielder_predictions)} midfielders'
+                    f'\n{len(forward_predictions)} forwards')
+        os.remove(r"CSV_Files/defender_predictions.csv")
+        os.remove(r"CSV_Files/forward_predictions.csv")
+        os.remove(r"CSV_Files/goalie_predictions.csv")
+        os.remove(r"CSV_Files/midfielder_predictions.csv")
+        
+        # Save predictions
+        load_predictions.load_predictions(goalie_predictions, defender_predictions, 
+                        midfielder_predictions, forward_predictions)
         logging.info('Predictions saved successfully')
 
     except Exception as e:
